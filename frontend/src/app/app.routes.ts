@@ -11,10 +11,7 @@ export const routes: Routes = [
   { path: 'menu', component: PrincipalComponent,
     children: [
       { path: '', component: CampeonatoComponent },
-      { path: 'admin',
-        children: [
-          { path: 'equipe', component: EquipeComponent },
-      ]},
+      { path: 'equipe', component: EquipeComponent },
     ],
   },
 ];

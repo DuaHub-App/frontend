@@ -18,35 +18,69 @@
                 </tr>
             </thead>
 
-
             <tbody>
-
                 @for (equipe of lista; track $index) {
                 <tr>
                     <td>{{equipe.id}}</td>
                     <td>{{equipe.nome}}</td>
                     <td>{{equipe.participante}}</td>
                     <td><button (click)="abrirModal(editarCamp)" class="btn btn-success">Editar</button></td>
-
                 </tr>
                 }
-
             </tbody>
-
-
-
+            
         </table>
     </div>
-
 </div>
-
 <ng-template #editarCamp let-modal>
     <div class="modal-header">
         <h4 class="modal-title">Editar Equipe</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross Click')"></button>
     </div>
     <div class="modal-body">
-
+        <form [formGroup]="equipeForm" (ngSubmit)="onSubmit()">
+            <!-- Nome da Equipe -->
+            <div class="mb-3">
+                <label for="nomeEquipe" class="form-label">Nome da Equipe</label>
+                <input id="nomeEquipe" formControlName="nomeEquipe" class="form-control" />
+                <div *ngIf="equipeForm.get('nomeEquipe')?.invalid && equipeForm.get('nomeEquipe')?.touched"
+                    class="text-danger">
+                    O nome da equipe é obrigatório.
+                </div>
+            </div>
+            <!-- ID da Equipe -->
+            <div class="mb-3">
+                <label for="idEquipe" class="form-label">ID da Equipe</label>
+                <input id="idEquipe" formControlName="idEquipe" class="form-control" />
+                <div *ngIf="equipeForm.get('idEquipe')?.invalid && equipeForm.get('idEquipe')?.touched"
+                    class="text-danger">
+                    O ID da equipe é obrigatório e deve ser numérico.
+                </div>
+            </div>
+            <!-- Lista de Participantes -->
+            <div formArrayName="participantes">
+                <div *ngFor="let participante of participantes.controls; let i = index" [formGroupName]="i"
+                    class="mb-3">
+                    <label for="nome{{i}}" class="form-label">Nome do Participante {{i + 1}}</label>
+                    <input id="nome{{i}}" formControlName="nome" class="form-control" />
+                    <div *ngIf="participante.get('nome')?.invalid && participante.get('nome')?.touched"
+                        class="text-danger">
+                        O nome do participante é obrigatório.
+                    </div>
+                    <label for="id{{i}}" class="form-label">ID do Participante {{i + 1}}</label>
+                    <input id="id{{i}}" formControlName="id" class="form-control" />
+                    <div *ngIf="participante.get('id')?.invalid && participante.get('id')?.touched" class="text-danger">
+                        O ID do participante é obrigatório e deve ser numérico.
+                    </div>
+                    <!-- Botão para remover participante -->
+                    <button type="button" class="btn btn-danger mt-2" (click)="removerParticipante(i)">Remover</button>
+                </div>
+            </div>
+            <!-- Botão para adicionar mais participantes -->
+            <button type="button" class="btn btn-secondary mt-3" (click)="adicionarParticipante()">Adicionar
+                Participante</button>
+            <!-- Botão de Enviar -->
+            <button type="submit" class="btn btn-primary mt-3" [disabled]="equipeForm.invalid">Criar Equipe</button>
+        </form>
     </div>
-    <div class="modal-footer"></div>
 </ng-template>
