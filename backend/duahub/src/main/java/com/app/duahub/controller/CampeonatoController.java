@@ -1,7 +1,6 @@
 package com.app.duahub.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,24 +14,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.duahub.entity.Equipe;
-import com.app.duahub.repository.EquipeRepository;
-import com.app.duahub.service.EquipeService;
+import com.app.duahub.entity.Campeonato;
+import com.app.duahub.repository.CampeonatoRepository;
+import com.app.duahub.service.CampeonatoService;
 
 @RestController
-@RequestMapping("/equipes")
-public class EquipeController {
+@RequestMapping("/campeonatos")
+public class CampeonatoController {
 
 	@Autowired
-	private EquipeRepository equipeRepository;
+	private CampeonatoRepository campeonatoRepository; 
 
 	@Autowired
-	private EquipeService equipeService;
+	private CampeonatoService campeonatoService;
 
 	@PostMapping
-	public ResponseEntity<String> save(@RequestBody Equipe equipe) {
+	public ResponseEntity<String> save(@RequestBody Campeonato campeonato) {
 		try {
-			String message = this.equipeService.save(equipe);
+			String message = this.campeonatoService.save(campeonato);
 			return new ResponseEntity<>(message, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
@@ -40,10 +39,10 @@ public class EquipeController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> update(@RequestBody Equipe equipe,@PathVariable Long id) {
+	public ResponseEntity<String> update(@RequestBody Campeonato campeonato,@PathVariable Long id) {
 
 		try {
-			String message = this.equipeService.update(equipe, id);
+			String message = this.campeonatoService.update(campeonato, id);
 			return new ResponseEntity<>(message, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
@@ -53,7 +52,7 @@ public class EquipeController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> delete(@PathVariable Long id) {
 		try {
-			String message = this.equipeService.delete(id);
+			String message = this.campeonatoService.delete(id);
 			return new ResponseEntity<>(message, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
@@ -61,9 +60,9 @@ public class EquipeController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Equipe>> findAll(){
+	public ResponseEntity<List<Campeonato>> findAll(){
 		try {
-			List<Equipe> list = this.equipeService.findAll();
+			List<Campeonato> list = this.campeonatoService.findAll();
 			return new ResponseEntity<>(list, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
@@ -71,15 +70,14 @@ public class EquipeController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Equipe> findById(@PathVariable Long id) {
+	public ResponseEntity<Campeonato> findById(@PathVariable Long id) {
 		try {
-			Equipe equipe = this.equipeService.findById(id);
-			return new ResponseEntity<>(equipe, HttpStatus.OK);
+			Campeonato campeonato = this.campeonatoService.findById(id);
+			return new ResponseEntity<>(campeonato, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(null , HttpStatus.BAD_REQUEST);
 		}
 	}
-
 
 
 }
