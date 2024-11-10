@@ -1,0 +1,55 @@
+<div class="container-fluid m-0 p-0 d-flex justify-content-center align-items-center h-100">
+    <div class="col-md-12 h-100">
+        <table class="table table-hover table-striped" border="4">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Campeonatos</th>
+                    <th>Edição</th>
+                    <th><form class="d-flex input-group w-auto">
+                        <input
+                          type="search"
+                          class="form-control"
+                          placeholder="Type query"
+                          aria-label="Search"
+                        />
+                        <button class="btn btn-outline-success" type="button">
+                          Search
+                        </button>
+                      </form>
+                    </th>
+                </tr>
+            </thead>
+        
+        
+            <tbody>
+        
+                @for (campeonato of lista; track $index) {
+                <tr>
+                    <td>{{campeonato.id}}</td>
+                    <td>{{campeonato.nome}}</td>
+                    <td>{{campeonato.campeonato}}</td>
+                    <td><button (click)="abrirModal(editarCamp)" class="btn btn-success">Editar</button></td>
+                </tr>
+            }
+        
+            </tbody>
+        
+        
+        
+        </table>
+    </div>
+    
+</div>
+
+<ng-template #editarCamp let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Editar Campeonato</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross Click')"></button>
+    </div>
+    <div class="modal-body">
+
+    </div>
+    <div class="modal-footer"></div>
+</ng-template>
