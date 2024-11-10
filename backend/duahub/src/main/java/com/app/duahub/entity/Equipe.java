@@ -2,6 +2,7 @@ package com.app.duahub.entity;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,7 +31,7 @@ public class Equipe {
 	
 	private String nome;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "equipe_id")
-	private List<Participante> participante;
+	private List<Participante> participantes;
 }
