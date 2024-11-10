@@ -9,40 +9,35 @@
                     <th>Edição</th>
                     <th>
                         <form class="d-flex input-group w-auto">
-                        <input
-                          type="search"
-                          class="form-control"
-                          placeholder="Type query"
-                          aria-label="Search"
-                        />
-                        <button class="btn btn-outline-success" type="button">
-                          Search
-                        </button>
-                      </form>
+                            <input type="search" class="form-control" placeholder="Type query" aria-label="Search" />
+                            <button class="btn btn-outline-success" type="button">
+                                Search
+                            </button>
+                        </form>
                     </th>
                 </tr>
             </thead>
-        
-        
+
+
             <tbody>
-        
+
                 @for (equipe of lista; track $index) {
                 <tr>
                     <td>{{equipe.id}}</td>
                     <td>{{equipe.nome}}</td>
-                    <td>{{equipe.participantes}}</td>
+                    <td>{{equipe.participante}}</td>
                     <td><button (click)="abrirModal(editarCamp)" class="btn btn-success">Editar</button></td>
 
                 </tr>
-            }
-        
+                }
+
             </tbody>
-        
-        
-        
+
+
+
         </table>
     </div>
-    
+
 </div>
 
 <ng-template #editarCamp let-modal>

@@ -1,57 +1,41 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuComponent } from '../layout/menu/menu.component';
 import { RouterOutlet } from '@angular/router';
 import { Equipe } from '../../models/equipe/equipe';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EquipeService } from '../../service/equipe.service';
 
 @Component({
   selector: 'app-equipe',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './equipe.component.html',
-  styleUrl: './equipe.component.scss'
+  styleUrl: './equipe.component.scss',
 })
-export class EquipeComponent {
+export class EquipeComponent implements OnInit {
   lista: Equipe[] = [];
 
-  constructor(   private modalService: NgbModal
-  ) {
-    
-
-    let equipe: Equipe = new Equipe();
-    equipe.id = 1;
-    equipe.nome = 'cava';
-    equipe.participantes = 'joao';
-
-    let equipe2: Equipe = new Equipe();
-    equipe.id = 2;
-    equipe.nome = 'Vala';
-    equipe.participantes = 'felipe';
-
-    let equipe3: Equipe = new Equipe();
-    equipe.id = 3;
-    equipe.nome = 'safad';
-    equipe.participantes = 'gabriel';
-
-    let equipe4: Equipe = new Equipe();
-    equipe.id = 4;
-    equipe.nome = 'Vavas';
-    equipe.participantes = 'henrique';
-
-    let equipe5: Equipe = new Equipe();
-    equipe.id = 5;
-    equipe.nome = 'Fila';
-    equipe.participantes = 'guilherme';
-
-    this.lista.push(equipe);
-    this.lista.push(equipe);
-    this.lista.push(equipe);
-    this.lista.push(equipe);
-    this.lista.push(equipe);
+  constructor(
+    private modalService: NgbModal,
+    private equipeService: EquipeService
+  ) {}
+  ngOnInit(): void {
+    this.listarEquipe();
   }
 
   abrirModal(content: any) {
-    this.modalService.open(content, {size: 'xl'});
+    this.modalService.open(content, { size: 'xl' });
+  }
+
+  listarEquipe(): void {
+    this.equipeService.getEquipe().subscribe(
+      (data) => {
+        this.lista = data;
+      },
+      (error) => {
+        console.error('Erro ao carregar equipe', error);
+      }
+    );
   }
 }
