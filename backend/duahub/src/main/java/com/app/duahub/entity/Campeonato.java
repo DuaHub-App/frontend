@@ -1,6 +1,5 @@
 package com.app.duahub.entity;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -30,10 +29,6 @@ public class Campeonato {
 	private Long id;
 	
 	private String nome;
-	
-	private String 	local;
-	
-	private LocalDateTime data;
 	
 	 @OneToMany
 	 @JoinColumn(name = "campeonato_id")
