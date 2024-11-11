@@ -7,13 +7,15 @@
         <tr>
           <th>Id</th>
           <th>Nome</th>
-          <th>participantes</th>
+          <th>Participantes</th>
           <th>Edição</th>
           <th>
             <button
               class="btn btn-success"
               (click)="abrirModal(criarEquipe, 'create')"
-            ></button>
+            >
+              Criar Nova Equipe
+            </button>
           </th>
           <th>
             <form class="d-flex input-group w-auto">
@@ -35,7 +37,11 @@
         <tr *ngFor="let equipe of lista; let i = index">
           <td>{{ equipe.id }}</td>
           <td>{{ equipe.nome }}</td>
-          <td>{{ equipe.participante }}</td>
+          <td>
+            <p *ngFor="let participante of equipe.participantes">
+              {{ participante.nome }}
+            </p>
+          </td>
           <td>
             <button
               (click)="abrirModal(editarEquipe, 'edit', i)"
@@ -61,7 +67,7 @@
     ></button>
   </div>
   <div class="modal-body">
-    <!-- <form [formGroup]="equipeForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="equipeForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
                 <label for="nomeEquipe" class="form-label">Nome da Equipe</label>
                 <input id="nomeEquipe" formControlName="nomeEquipe" class="form-control"/>
@@ -92,13 +98,13 @@
                     <button type="submit" class="btn btn-success ms-4" [disabled]="equipeForm.invalid">Salvar Alterações</button>
                 </div>
             </div>
-        </form> -->
+        </form>
   </div>
 </ng-template>
 
 <ng-template #criarEquipe let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Editar Equipe</h4>
+    <h4 class="modal-title">Criar Equipe</h4>
     <button
       type="button"
       class="btn-close"
@@ -107,37 +113,71 @@
     ></button>
   </div>
   <div class="modal-body">
-    <!-- <form [formGroup]="equipeForm" (ngSubmit)="onSubmit()">
-            <div class="mb-3">
-                <label for="nomeEquipe" class="form-label">Nome da Equipe</label>
-                <input id="nomeEquipe" formControlName="nomeEquipe" class="form-control"/>
-            </div>
-    
-            <div class="mb-3">
-                <label for="idEquipe" class="form-label">ID da Equipe</label>
-                <input id="idEquipe" formControlName="idEquipe" class="form-control"/>
-            </div>
-    
-            <div formArrayName="participantes">
-                <div *ngFor="let participante of participantes.controls; let i = index" [formGroupName]="i" class="mb-3">
-                    <label for="nome{{i}}" class="form-label">Nome do Participante {{i + 1}}</label>
-                    <input id="nome{{i}}" formControlName="nome" class="form-control"/>
+    <form [formGroup]="equipeForm">
+      <div class="mb-3">
+        <label for="nomeEquipe" class="form-label">Nome da Equipe</label>
+        <input
+          id="nomeEquipe"
+          formControlName="nomeEquipe"
+          class="form-control"
+        />
+      </div>
 
-                    <label for="id{{i}}" class="form-label">ID do Participante {{i + 1}}</label>
-                    <input id="id{{i}}" formControlName="id" class="form-control" />
-    
-                    <button type="button" class="btn btn-danger mt-2" (click)="removerParticipante(i)">Remover</button>
-                </div>
-            </div>
-    
-            <button type="button" class="btn btn-secondary mt-3" (click)="adicionarParticipante()">Adicionar Participante</button>
-    
-            <div class="modal-footer">
-                <div class="col-md-12 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-danger" (click)="modal.dismiss()">Cancelar</button>
-                    <button type="submit" class="btn btn-success ms-4" [disabled]="equipeForm.invalid">Salvar Alterações</button>
-                </div>
-            </div>
-        </form> -->
+      <div class="mb-3">
+        <label for="idEquipe" class="form-label">ID da Equipe</label>
+        <input id="idEquipe" formControlName="idEquipe" class="form-control" />
+      </div>
+
+      <div formArrayName="participantes">
+        <div
+          *ngFor="let participante of participantes.controls; let i = index"
+          [formGroupName]="i"
+          class="mb-3"
+        >
+          <label for="nome{{ i }}" class="form-label"
+            >Nome do Participante {{ i + 1 }}</label
+          >
+          <input id="nome{{ i }}" formControlName="nome" class="form-control" />
+
+          <label for="id{{ i }}" class="form-label"
+            >ID do Participante {{ i + 1 }}</label
+          >
+          <input id="id{{ i }}" formControlName="id" class="form-control" />
+
+          <button
+            type="button"
+            class="btn btn-danger mt-2"
+            (click)="removerParticipante(i)"
+          >
+            Remover
+          </button>
+        </div>
+      </div>
+
+      <div class="col-md-12 d-flex justify-content-end mb-3">
+        <button
+          type="button"
+          class="btn btn-secondary mt-3"
+          (click)="adicionarParticipante()"
+        >
+          Adicionar Participante
+        </button>
+      </div>
+
+      <div class="modal-footer">
+        <div class="col-md-12 d-flex justify-content-end">
+          <button
+            type="submit"
+            class="btn btn-danger"
+            (click)="modal.dismiss()"
+          >
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-success ms-4">
+            Salvar Alterações
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
 </ng-template>

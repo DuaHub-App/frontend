@@ -1,16 +1,23 @@
 export class Equipe {
-    id?: number;
-    nome: string = '';
-    equipe: string = '';
-    participante: any[] = []
+  id?: number;
+  nome: string = '';
+  participantes: Participante[] = [];
 
-    constructor(
+  constructor(
     nome: string = '',
-    equipe: string = '',
-    participante: any[] = []
-    ) {
-        this.nome = nome;
-        this.equipe = equipe,
-        this.participante = [] = []
+    participantes: Participante[] = [] 
+  ) {
+    this.nome = nome;
+    this.participantes = participantes;
+  }
 }
+
+export class Participante {
+  id?: number;
+  nome: string = '';
+
+  constructor(id?: number, nome: string = '') {
+    this.id = id;
+    this.nome = nome;
+  }
 }
