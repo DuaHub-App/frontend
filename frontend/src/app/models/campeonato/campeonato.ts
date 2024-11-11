@@ -1,16 +1,26 @@
 export class Campeonato {
-    id?: number;
-    nome: string = '';
-    participante: string = '';
-    campeonato: string = '';
+  id?: number;
+  nome: string = '';
+  equipe: Equipe[] = [];
+  campeonato: string = '';
 
-    constructor(
+  constructor(
     nome: string = '',
-    participante: string = '',
-    campeonato: string = '',
-    ) {
-        this.nome = nome;
-        this.participante = participante;
-        this.campeonato = campeonato;
+    equipe: Equipe[] = [],
+    campeonato: string = ''
+  ) {
+    this.nome = nome;
+    this.equipe = equipe;
+    this.campeonato = campeonato;
+  }
 }
+
+export class Equipe {
+  id?: number;
+  nome: string = '';
+
+  constructor(id?: number, nome: string = '') {
+    this.id = id;
+    this.nome = nome;
+  }
 }

@@ -3,10 +3,7 @@ export class Equipe {
   nome: string = '';
   participantes: Participante[] = [];
 
-  constructor(
-    nome: string = '',
-    participantes: Participante[] = [] 
-  ) {
+  constructor(nome: string = '', participantes: Participante[] = []) {
     this.nome = nome;
     this.participantes = participantes;
   }
