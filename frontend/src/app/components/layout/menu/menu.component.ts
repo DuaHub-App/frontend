@@ -7,18 +7,16 @@ import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
   standalone: true,
   imports: [MdbCollapseModule],
   templateUrl: './menu.component.html',
-  styleUrl: './menu.component.scss'
+  styleUrl: './menu.component.scss',
 })
 export class MenuComponent {
+  constructor(private router: Router) {}
 
-  constructor(
-    private router: Router,
-  ) {
-
+  sair() {
+    this.router.navigate(['/login']);
   }
 
   navegarEntreRotas(rota: string) {
     this.router.navigate([`/menu/${rota}`]);
   }
-
 }
