@@ -68,71 +68,139 @@
   </div>
   <div class="modal-body">
     <form [formGroup]="equipeForm" (ngSubmit)="onSubmit()">
-            <div class="mb-3">
-                <label for="nomeEquipe" class="form-label">Nome da Equipe</label>
-                <input id="nomeEquipe" formControlName="nomeEquipe" class="form-control"/>
-            </div>
-    
-            <div class="mb-3">
-                <label for="idEquipe" class="form-label">ID da Equipe</label>
-                <input id="idEquipe" formControlName="idEquipe" class="form-control"/>
-            </div>
-    
-            <div formArrayName="participantes">
-                <div *ngFor="let participante of participantes.controls; let i = index" [formGroupName]="i" class="mb-3">
-                    <label for="nome{{i}}" class="form-label">Nome do Participante {{i + 1}}</label>
-                    <input id="nome{{i}}" formControlName="nome" class="form-control"/>
+      <div class="mb-3">
+        <label for="nomeEquipe" class="form-label">Nome da Equipe</label>
+        <input
+          id="nomeEquipe"
+          formControlName="nomeEquipe"
+          class="form-control"
+        />
+      </div>
 
-                    <label for="id{{i}}" class="form-label">ID do Participante {{i + 1}}</label>
-                    <input id="id{{i}}" formControlName="id" class="form-control" />
-    
-                    <button type="button" class="btn btn-danger mt-2" (click)="removerParticipante(i)">Remover</button>
-                </div>
-            </div>
-    
-            <button type="button" class="btn btn-secondary mt-3" (click)="adicionarParticipante()">Adicionar Participante</button>
-    
-            <div class="modal-footer">
-                <div class="col-md-12 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-danger" (click)="modal.dismiss()">Cancelar</button>
-                    <button type="submit" class="btn btn-success ms-4" [disabled]="equipeForm.invalid">Salvar Alterações</button>
-                </div>
-            </div>
-        </form>
+      <div class="mb-3">
+        <label for="idEquipe" class="form-label">ID da Equipe</label>
+        <input id="idEquipe" formControlName="idEquipe" class="form-control" />
+      </div>
+
+      <div formArrayName="participantes">
+        <div
+          *ngFor="let participante of participantes.controls; let i = index"
+          [formGroupName]="i"
+          class="mb-3"
+        >
+          <label for="nome{{ i }}" class="form-label"
+            >Nome do Participante {{ i + 1 }}</label
+          >
+          <input id="nome{{ i }}" formControlName="nome" class="form-control" />
+
+          <label for="id{{ i }}" class="form-label"
+            >ID do Participante {{ i + 1 }}</label
+          >
+          <input id="id{{ i }}" formControlName="id" class="form-control" />
+
+          <button
+            type="button"
+            class="btn btn-danger mt-2"
+            (click)="removerParticipante(i)"
+          >
+            Remover
+          </button>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-secondary mt-3"
+        (click)="adicionarParticipante()"
+      >
+        Adicionar Participante
+      </button>
+
+      <div class="modal-footer">
+        <div class="col-md-12 d-flex justify-content-end">
+          <button
+            type="submit"
+            class="btn btn-danger"
+            (click)="modal.dismiss()"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            class="btn btn-success ms-4"
+            [disabled]="equipeForm.invalid"
+          >
+            Salvar Alterações
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
 </ng-template>
 
 <ng-template #criarEquipe let-modal>
   <div class="modal-header">
     <h4 class="modal-title">Criar Nova Equipe</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
   </div>
   <div class="modal-body">
     <form [formGroup]="formCreate">
       <div class="mb-3">
         <label for="nomeEquipe" class="form-label">Nome da Equipe</label>
-        <input id="nomeEquipe" formControlName="nomeEquipe" class="form-control" />
+        <input
+          id="nomeEquipe"
+          formControlName="nomeEquipe"
+          class="form-control"
+        />
       </div>
-    
+
       <div formArrayName="participantes">
-        <div *ngFor="let participante of participantes.controls; let i = index" [formGroupName]="i" class="mb-3">
-          <label for="nome{{i}}" class="form-label">Nome do Participante {{i + 1}}</label>
-          <input id="nome{{i}}" formControlName="nome" class="form-control" />
-    
-          <button type="button" class="btn btn-danger mt-2" (click)="removerParticipante(i)">Remover</button>
+        <div
+          *ngFor="let participante of participantes.controls; let i = index"
+          [formGroupName]="i"
+          class="mb-3"
+        >
+          <label for="nome{{ i }}" class="form-label"
+            >Nome do Participante {{ i + 1 }}</label
+          >
+          <input id="nome{{ i }}" formControlName="nome" class="form-control" />
+
+          <button
+            type="button"
+            class="btn btn-danger mt-2"
+            (click)="removerParticipante(i)"
+          >
+            Remover
+          </button>
         </div>
       </div>
-    
-      <button type="button" class="btn btn-secondary mt-3" (click)="adicionarParticipante()">Adicionar Participante</button>
+
+      <button
+        type="button"
+        class="btn btn-secondary mt-3"
+        (click)="adicionarParticipante()"
+      >
+        Adicionar Participante
+      </button>
     </form>
   </div>
   <div class="modal-footer">
     <div class="col-md-12 d-flex justify-content-end">
-      <button type="submit" (click)="modal.dismiss()" class="btn btn-danger">Cancelar</button>
-      <button type="submit" (click)="onSubmitCreate(); modal.dismiss()" class="btn btn-success ms-4">
+      <button type="submit" (click)="modal.dismiss()" class="btn btn-danger">
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        (click)="onSubmitCreate(); modal.dismiss()"
+        class="btn btn-success ms-4"
+      >
         Criar cliente
       </button>
     </div>
   </div>
 </ng-template>
-

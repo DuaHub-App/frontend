@@ -38,8 +38,8 @@ export class EquipeComponent implements OnInit, OnDestroy {
   ) {
     this.equipeForm = this.fb.group({
       nomeEquipe: ['', Validators.required], // Nome da equipe
-      idEquipe: ['', [Validators.required, Validators.pattern('^[0-9]*$')]], // ID da equipe (somente números)
-      participantes: this.fb.array([this.criarParticipante()]), // FormArray para participantes
+      idEquipe: ['', [Validators.required, Validators.pattern('^[0-9]*$')]], 
+      participantes: this.fb.array([this.criarParticipante()]), 
     });
   }
 
@@ -111,7 +111,7 @@ export class EquipeComponent implements OnInit, OnDestroy {
 
   criarParticipante(): FormGroup {
     return this.fb.group({
-      nome: ['', Validators.required], // Campos para o participante
+      nome: ['', Validators.required],
       id: [null],
     });
   }
