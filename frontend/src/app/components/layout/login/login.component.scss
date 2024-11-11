@@ -1,0 +1,58 @@
+.fundo-login {
+    background-image: url('/assets/images/bg_login.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    position: relative; 
+  }
+  
+  .card {
+    border-radius: 15px; /* Borda arredondada no card */
+    padding: 30px; /* Mais espaçamento no card */
+    background-color: rgba(255, 255, 255, 0.9); /* Fundo com leve transparência */
+  }
+  
+  .card-header {
+    background-color: #f8f9fa; /* Cor de fundo para o header */
+    border-bottom: 1px solid #ddd; /* Linha sutil para separar o header */
+    padding: 20px;
+  }
+  
+  .card-body {
+    padding: 30px;
+  }
+  
+  .form-input {
+    border-radius: 10px; /* Bordas arredondadas nos campos de input */
+    border: 1px solid #ddd; /* Borda suave nos inputs */
+    padding: 10px 15px; /* Padding confortável nos inputs */
+    margin-bottom: 20px; /* Espaçamento entre os inputs */
+    font-size: 16px; /* Tamanho de fonte confortável */
+  }
+  
+  .form-input:focus {
+    border-color: #007bff; /* Cor da borda ao focar */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Sombra suave no foco */
+  }
+  
+  button {
+    border-radius: 25px; /* Bordas arredondadas no botão */
+    padding: 12px 25px; /* Padding maior no botão */
+    font-size: 16px; /* Fonte do botão maior */
+    transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+  }
+  
+  button:hover {
+    background-color: #0056b3; /* Cor do botão ao passar o mouse */
+  }
+  
+  button:active {
+    background-color: #168500; /* Cor do botão ao clicar */
+  }
+  
+  label {
+    font-weight: bold;
+    color: #555;
+  }
+  
