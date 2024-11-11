@@ -19,7 +19,7 @@ export class EquipeService {
     return this.http.post<Equipe>(`${this.api}`, equipe);
   }
 
-  atualizarEquipe(): Observable<Equipe>{
+  atualizarEquipe(equipe: Equipe): Observable<Equipe> {
     return this.http.put<Equipe>(`${this.api}`, equipe);
   }
 }

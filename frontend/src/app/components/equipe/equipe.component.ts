@@ -24,6 +24,7 @@ export class EquipeComponent implements OnInit, OnDestroy {
   lista: Equipe[] = [];
   equipe: Equipe = new Equipe();
   equipeForm!: FormGroup;
+  formCreate!: FormGroup;
   editMode: boolean = false;
   equipeSelecionada: Equipe | null = null;
 
@@ -52,6 +53,11 @@ export class EquipeComponent implements OnInit, OnDestroy {
       ) {
         this.listarEquipe();
       }
+    });
+
+    this.formCreate = this.fb.group({
+      nomeEquipe: ['', Validators.required],
+      participantes: this.fb.array([this.criarParticipante()]),
     });
   }
 
@@ -83,51 +89,87 @@ export class EquipeComponent implements OnInit, OnDestroy {
     }
     this.modalService.open(content, { size: 'xl' });
   }
-
+  
   setEquipeData() {
     if (this.equipeSelecionada) {
       this.equipeForm.patchValue({
+        idEquipe: this.equipeSelecionada.id,
         nomeEquipe: this.equipeSelecionada.nome,
       });
 
-      // Preenche o FormArray de participantes com os dados da equipe selecionada
-      this.equipeSelecionada.participantes.forEach((participantes, index) => {
+      this.equipeSelecionada.participantes.forEach((participante, index) => {
         if (index > 0) {
-          this.adicionarParticipante(); // Adiciona participantes extras, se necessário
+          this.adicionarParticipante();
         }
         this.participantes.at(index).patchValue({
-          nome: participantes.nome,
-          id: participantes.id,
+          nome: participante.nome,
+          id: participante.id,
         });
       });
     }
   }
 
-  // Método para criar um novo participante no FormArray
   criarParticipante(): FormGroup {
     return this.fb.group({
-      nome: ['', Validators.required], // Nome do participante
-      id: ['', [Validators.required, Validators.pattern('^[0-9]*$')]], // ID do participante
+      nome: ['', Validators.required], // Campos para o participante
+      id: [null],
     });
   }
 
   get participantes(): FormArray {
-    return this.equipeForm.get('participantes') as FormArray;
+    return this.formCreate.get('participantes') as FormArray;
   }
 
   adicionarParticipante(): void {
-    if (this.participantes.length < 4) {
-      this.participantes.push(this.criarParticipante());
-    }
+    this.participantes.push(this.criarParticipante());
   }
 
   removerParticipante(index: number): void {
-    if (this.participantes.length > 1) {
-      this.participantes.removeAt(index);
-    }
+    this.participantes.removeAt(index);
   }
 
-  // Método para submeter o formulário de criação ou edição
+  salvarEquipe(equipe: Equipe) {
+    this.equipeService.SalvarEquipe(equipe).subscribe(
+      (data) => {
+        console.log('Equipe salva com sucesso:', data);
+        this.listarEquipe();
+      },
+      (error) => {
+        console.error('Erro ao salvar equipe:', error);
+      }
+    );
+  }
+
+  atualizarEquipe(equipe: Equipe): void {
+    this.equipeService.atualizarEquipe(equipe).subscribe(
+      (data) => {
+        console.log('Equipe atualizada com sucesso:', data);
+        this.listarEquipe();
+      },
+      (error) => {
+        console.error('Erro ao atualizar equipe:', error);
+      }
+    );
+  }
+
+  onSubmitCreate(): void {
+    if (this.formCreate.invalid) {
+      this.formCreate.markAllAsTouched();
+      return;
+    }
+
+    const formData = this.formCreate.value;
+
+    const participantes: Participante[] = formData.participantes.map(
+      (participante: any) =>
+        new Participante(participante.id, participante.nome)
+    );
+
+    const novaEquipe = new Equipe(formData.nomeEquipe, participantes);
+
+    this.salvarEquipe(novaEquipe);
+  }
+
   onSubmit(): void {
     if (this.equipeForm.invalid) {
       this.equipeForm.markAllAsTouched();
@@ -136,46 +178,26 @@ export class EquipeComponent implements OnInit, OnDestroy {
 
     const equipeData = this.equipeForm.value;
 
-    // Transformando os participantes para o modelo esperado
     const participantes: Participante[] = equipeData.participantes.map(
-      (participante: any) => {
-        return new Participante(participante.id, participante.nome);
-      }
+      (participante: any) =>
+        new Participante(participante.id, participante.nome)
     );
 
     if (this.editMode && this.equipeSelecionada && this.equipeSelecionada.id) {
-      // Atualização de uma equipe existente
       const equipeAtualizada: Equipe = {
         id: this.equipeSelecionada.id,
         nome: equipeData.nomeEquipe,
-        participantes: participantes, // Atualizado para o modelo correto
+        participantes: participantes,
       };
 
-      this.equipeService.atualizarEquipe(equipeAtualizada).subscribe(
-        (data: any) => {
-          console.log('Equipe atualizada com sucesso:', data);
-          this.listarEquipe(); // Recarrega a lista de equipes
-        },
-        (error: any) => {
-          console.error('Erro ao atualizar equipe:', error);
-        }
-      );
+      this.atualizarEquipe(equipeAtualizada);
     } else {
-      // Criação de uma nova equipe
       const novaEquipe: Equipe = {
         nome: equipeData.nomeEquipe,
-        participantes: participantes, // Atualizado para o modelo correto
+        participantes: participantes,
       };
 
-      this.equipeService.SalvarEquipe(novaEquipe).subscribe(
-        (data: any) => {
-          console.log('Equipe salva com sucesso:', data);
-          this.listarEquipe(); // Recarrega a lista de equipes
-        },
-        (error: any) => {
-          console.error('Erro ao salvar equipe:', error);
-        }
-      );
+      this.salvarEquipe(novaEquipe);
     }
   }
 }

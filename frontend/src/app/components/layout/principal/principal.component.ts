@@ -7,7 +7,7 @@ import { CampeonatoComponent } from '../../campeonato/campeonato.component';
 @Component({
   selector: 'app-principal',
   standalone: true,
-  imports: [CommonModule, MenuComponent, RouterOutlet, CampeonatoComponent],
+  imports: [CommonModule, MenuComponent, RouterOutlet],
   templateUrl: './principal.component.html',
   styleUrl: './principal.component.scss'
 })
