@@ -7,6 +7,12 @@ import { Equipe } from '../models/equipe/equipe.model';
   providedIn: 'root',
 })
 export class EquipeService {
+  deletarEquipe(id: number) {
+    throw new Error('Method not implemented.');
+  }
+  atualizarEquipe(equipeAtualizada: Equipe) {
+    throw new Error('Method not implemented.');
+  }
   private api = 'http://localhost:3306';
 
   constructor(private http: HttpClient) {}
