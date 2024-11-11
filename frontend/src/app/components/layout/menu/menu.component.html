@@ -1,33 +1,45 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <img src="assets/images/dua_home.png" (click)="navegarEntreRotas('')">
-      <a class="navbar-brand" href="/login">Home DUA</a>
-  
-      <button
-        class="navbar-toggler"
-        type="button"
-        (click)="basicNavbar.toggle()"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <i class="fas fa-bars"></i>
-      </button>
-  
-      <div
-        class="collapse navbar-collapse"
-        id="navbarSupportedContent"
-        mdbCollapse
-        #basicNavbar="mdbCollapse"
-      >
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <button class="btn btn-outline-success rounded" (click)="navegarEntreRotas('')">Campeonatos</button>
-          </li>
-          <li class="nav-item">
-            <button class="btn btn-outline-success rounded ms-2" (click)="navegarEntreRotas('equipe')">Equipe</button>
-        </ul>
-  
-        
-      </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+  <div class="container-fluid">
+    <a href="/" class="navbar-brand">
+      <img src="assets/images/dua_home.png" alt="Logo" />
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      (click)="basicNavbar.toggle()"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div
+      class="collapse navbar-collapse"
+      id="navbarSupportedContent"
+      mdbCollapse
+      #basicNavbar="mdbCollapse"
+    >
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <button
+            class="btn btn-success rounded"
+            (click)="navegarEntreRotas('')"
+          >
+            Campeonatos
+          </button>
+        </li>
+        <li class="nav-item">
+          <button
+            class="btn btn-success rounded ms-2"
+            (click)="navegarEntreRotas('equipe')"
+          >
+            Equipe
+          </button>
+        </li>
+      </ul>
+
+      <a class="navbar-brand" href="/login">Sair</a>
     </div>
-  </nav>
+  </div>
+</nav>
