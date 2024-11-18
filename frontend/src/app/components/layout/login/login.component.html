@@ -16,7 +16,8 @@
                 id="usuario"
                 class="form-control form-input"
                 [(ngModel)]="usuario"
-                placeholder="Digite seu usuário"
+                placeholder="Digite seu usuário" 
+                (keyup.enter)="logar()"
               />
               <label mdbLabel class="form-label" for="usuario">Usuário</label>
             </mdb-form-control>
@@ -29,6 +30,7 @@
                 class="form-control form-input"
                 [(ngModel)]="senha"
                 placeholder="Digite sua senha"
+                (keyup.enter)="logar()"
               />
               <label mdbLabel class="form-label" for="senha">Senha</label>
             </mdb-form-control>
