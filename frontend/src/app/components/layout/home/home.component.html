@@ -1,0 +1,41 @@
+<div
+  class="container-fluid m-0 p-0 d-flex justify-content-center align-items-center"
+>
+  <div class="col-md-12">
+    <table class="table table-hover table-striped" border="4">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Nome</th>
+          <th>Campeonatos</th>
+          <th>Edição</th>
+          <th>
+            <form class="d-flex input-group w-auto">
+              <input
+                type="search"
+                class="form-control"
+                placeholder="Type query"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success" type="button">
+                Search
+              </button>
+            </form>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let Campeonato of lista; let i = index">
+          <td>{{ Campeonato.id }}</td>
+          <td>{{ Campeonato.nome }}</td>
+          <td>
+            <p *ngFor="let equipe of Campeonato.equipe">
+              {{ equipe.nome }}
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
