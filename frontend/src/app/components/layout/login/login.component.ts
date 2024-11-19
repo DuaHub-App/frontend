@@ -30,13 +30,25 @@ export class LoginComponent {
         credencial.usuario === this.usuario && credencial.senha === this.senha
     );
 
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'bottom-right',
+      showConfirmButton: false,
+      timer: 5000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+      }
+    });
+
     if (credencialValida) {
-      Swal.fire({
+      Toast.fire({
         title: 'Acesso Permitido!',
         icon: 'success',
       });
 
-      this.router.navigate(['/menu']);
+      this.router.navigate(['/admin']);
     } else {
       Swal.fire({
         title: 'Usuário ou senha incorretos!',

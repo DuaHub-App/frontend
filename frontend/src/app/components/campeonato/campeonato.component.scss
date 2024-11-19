@@ -1,0 +1,81 @@
+.container-fluid {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e8f5e9;
+  background-image: url('/assets/images/bg_admin.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 20px;
+}
+
+.table {
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table th,
+.table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #c8e6c9;
+}
+
+.btn-success:focus {
+  box-shadow: 0 0 0 0.2rem rgba(67, 160, 71, 0.25);
+  background-color: #43a047;
+  border-color: #43a047;
+}
+
+.btn-success:hover {
+  background-color: #388e3c;
+  border-color: #388e3c;
+}
+
+.btn-outline-success:focus {
+  box-shadow: 0 0 0 0.2rem rgba(67, 160, 71, 0.25);
+  color: #43a047;
+  border-color: #43a047;
+}
+
+.btn-outline-success:hover {
+  color: #ffffff;
+  background-color: #43a047;
+}
+
+.input-group .form-control {
+  border-color: #c8e6c9;
+}
+
+.input-group .form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(67, 160, 71, 0.25);
+}
+
+.input-group .form-control:hover {
+  border-color: #43a047;
+}
+
+.modal-header,
+.modal-footer {
+  background-color: #e8f5e9;
+  font-family: Arial, sans-serif;
+  color: #2e7d32;
+  padding: 15px;
+}
+
+.modal-header h4,
+.modal-footer button {
+  font-weight: bold;
+}
+
+.modal-body {
+  background-color: #f1f8e9;
+  padding: 15px;
+}
