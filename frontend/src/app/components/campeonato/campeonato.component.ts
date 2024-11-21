@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgModule, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Campeonato, Equipe } from '../../models/campeonato/campeonato';
 import { CommonModule } from '@angular/common';
@@ -12,11 +12,12 @@ import {
   Validators
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { MenuCampeonatoComponent } from '../layout/menu-campeonato/menu-campeonato.component';
 
 @Component({
   selector: 'app-campeonato',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MenuCampeonatoComponent],
   templateUrl: './campeonato.component.html',
   styleUrls: ['./campeonato.component.scss'],
 })

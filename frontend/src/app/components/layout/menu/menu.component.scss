@@ -1,5 +1,81 @@
-.navbar-brand {
-  img {
-    width: 300px;
-  }
+/* Sidebar Container */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #000; /* Preto */
+  color: #fff; /* Branco */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  transition: transform 0.3s ease; /* Animação de entrada e saída */
+}
+
+/* Estado oculto */
+.sidebar.hidden {
+  transform: translateX(-100%);
+}
+
+/* Logo */
+.sidebar .logo img {
+  max-width: 80%;
+  margin-bottom: 20px;
+}
+
+/* Links de Navegação */
+.sidebar .nav-links {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.sidebar .nav-links li {
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.sidebar .nav-links button {
+  width: 90%;
+  text-align: left;
+  color: #fff;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  transition: all 0.3s;
+}
+
+.sidebar .nav-links button:hover {
+  background-color: #43a047; /* Verde */
+  color: #fff;
+  border-radius: 8px;
+}
+
+/* Botão Sair */
+.sidebar .nav-links .btn-danger {
+  background-color: #e53935;
+}
+
+.sidebar .nav-links .btn-danger:hover {
+  background-color: #d32f2f;
+}
+
+/* Botão Toggle */
+.toggle-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #43a047;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1001;
 }
