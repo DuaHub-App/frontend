@@ -13,11 +13,13 @@ import {
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MenuCampeonatoComponent } from '../layout/menu-campeonato/menu-campeonato.component';
+import { QualiferCampeonatoComponent } from '../layout/qualifer-campeonato/qualifer-campeonato.component';
+import { BracketComponent } from '../layout/bracket/bracket.component';
 
 @Component({
   selector: 'app-campeonato',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MenuCampeonatoComponent],
+  imports: [CommonModule, ReactiveFormsModule, MenuCampeonatoComponent, QualiferCampeonatoComponent, BracketComponent],
   templateUrl: './campeonato.component.html',
   styleUrls: ['./campeonato.component.scss'],
 })

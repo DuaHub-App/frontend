@@ -1,0 +1,98 @@
+<div class="tournament-bracket">
+  <h1>Chaveamento Espelhado</h1>
+  <div class="bracket-container">
+    <!-- Rodada Esquerda (Oitavas) -->
+    <div class="round left">
+      <h2>Oitavas</h2>
+      <div class="matchup" *ngFor="let match of leftBracket">
+        <div class="team" (click)="selectTeam(match.team1)">
+          {{ match.team1 }}
+        </div>
+        <div class="vs">VS</div>
+        <div class="team" (click)="selectTeam(match.team2)">
+          {{ match.team2 }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Rodada Quartas -->
+    <div class="round">
+      <h2>Quartas</h2>
+      <div class="matchup" *ngFor="let match of quartas">
+        <div class="team" (click)="selectTeam(match.team1)">
+          {{ match.team1 }}
+        </div>
+        <div class="vs">VS</div>
+        <div class="team" (click)="selectTeam(match.team2)">
+          {{ match.team2 }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Rodada Semi -->
+    <div class="round">
+      <h2>Semi</h2>
+      <div class="matchup" *ngFor="let match of semi">
+        <div class="team" (click)="selectTeam(match.team1)">
+          {{ match.team1 }}
+        </div>
+        <div class="vs">VS</div>
+        <div class="team" (click)="selectTeam(match.team2)">
+          {{ match.team2 }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Rodada Final -->
+    <div class="round final">
+      <h2>Final</h2>
+      <div class="matchup">
+        <div class="team">{{ final.team1 }}</div>
+        <div class="vs">VS</div>
+        <div class="team">{{ final.team2 }}</div>
+      </div>
+    </div>
+
+    <!-- Rodada Semi (Espelhada) -->
+    <div class="round">
+      <h2>Semi</h2>
+      <div class="matchup" *ngFor="let match of semi">
+        <div class="team" (click)="selectTeam(match.team1)">
+          {{ match.team1 }}
+        </div>
+        <div class="vs">VS</div>
+        <div class="team" (click)="selectTeam(match.team2)">
+          {{ match.team2 }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Rodada Quartas (Espelhada) -->
+    <div class="round">
+      <h2>Quartas</h2>
+      <div class="matchup" *ngFor="let match of quartas">
+        <div class="team" (click)="selectTeam(match.team1)">
+          {{ match.team1 }}
+        </div>
+        <div class="vs">VS</div>
+        <div class="team" (click)="selectTeam(match.team2)">
+          {{ match.team2 }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Rodada Oitavas (Espelhada) -->
+    <div class="round right">
+      <h2>Oitavas</h2>
+      <div class="matchup" *ngFor="let match of rightBracket">
+        <div class="team" (click)="selectTeam(match.team1)">
+          {{ match.team1 }}
+        </div>
+        <div class="vs">VS</div>
+        <div class="team" (click)="selectTeam(match.team2)">
+          {{ match.team2 }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

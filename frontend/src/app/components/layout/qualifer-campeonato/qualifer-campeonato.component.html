@@ -1,0 +1,37 @@
+<div class="qualifier-container">
+  <h1>Qualifier</h1>
+  <div class="table-container">
+    <table class="qualifier-table">
+      <thead>
+        <tr>
+          <th>Período</th>
+          <th>Turma</th>
+          <th>Equipes</th>
+          <th>Campeão</th>
+          <th>Playoffs</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of modalidades">
+          <td>
+            <div class="icon-label">
+              <img [src]="item.icon" alt="{{ item.modalidade }}" />
+              <span>{{ item.modalidade }}</span>
+            </div>
+          </td>
+          <td>{{ item.tipo }}</td>
+          <td>{{ item.atleticas }}</td>
+          <td>{{ item.campeao }}</td>
+          <td>
+            <button
+              class="playoff-btn"
+              (click)="playoffMessage(item.modalidade)"
+            >
+              →
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
