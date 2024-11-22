@@ -1,98 +1,49 @@
-<div class="tournament-bracket">
-  <h1>Chaveamento Espelhado</h1>
-  <div class="bracket-container">
-    <!-- Rodada Esquerda (Oitavas) -->
-    <div class="round left">
-      <h2>Oitavas</h2>
-      <div class="matchup" *ngFor="let match of leftBracket">
-        <div class="team" (click)="selectTeam(match.team1)">
-          {{ match.team1 }}
+<div id="playoff-page" class="playoff-page">
+    <div id="playoff-box" class="playoff-box">
+        <div>
+            <div>
+                <img src="assets/images/easy/baska.svg" alt="baska_icon">
+                <h1>Basquete Feminino</h1>
+            </div>
+            <div id="playoff-options">
+                <div class="options">Ver classificação</div>
+                <div class="options">Selecionar outra modalidade</div>
+                <div class="options">JPG</div>
+                <div class="options">PDF</div>
+            </div>
         </div>
-        <div class="vs">VS</div>
-        <div class="team" (click)="selectTeam(match.team2)">
-          {{ match.team2 }}
-        </div>
-      </div>
-    </div>
+        <div class="button">Voltar</div>
 
-    <!-- Rodada Quartas -->
-    <div class="round">
-      <h2>Quartas</h2>
-      <div class="matchup" *ngFor="let match of quartas">
-        <div class="team" (click)="selectTeam(match.team1)">
-          {{ match.team1 }}
-        </div>
-        <div class="vs">VS</div>
-        <div class="team" (click)="selectTeam(match.team2)">
-          {{ match.team2 }}
-        </div>
-      </div>
-    </div>
+        <div id="playoff-content" class="playoff-content">
 
-    <!-- Rodada Semi -->
-    <div class="round">
-      <h2>Semi</h2>
-      <div class="matchup" *ngFor="let match of semi">
-        <div class="team" (click)="selectTeam(match.team1)">
-          {{ match.team1 }}
-        </div>
-        <div class="vs">VS</div>
-        <div class="team" (click)="selectTeam(match.team2)">
-          {{ match.team2 }}
-        </div>
-      </div>
-    </div>
+            <div>
+                <div class="step-title">Oitavas</div>
+                <div class="bracket-oitavas">
+                    <div class="sub-bracket-oitavas">
+                        <div class="infos">
+                            <div class="location"> - </div>
+                            <div class="date">04/09</div>
+                        </div>
+                        <div class="confronto">
+                            <div class="times">
+                                
+                            </div>
+                            <div class="placar"></div>
+                        </div>
+                    </div>
+                    <div class="sub-bracket-oitavas"></div>
+                    <div class="sub-bracket-oitavas"></div>
+                    <div class="sub-bracket-oitavas"></div>
+                </div>
+            </div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
 
-    <!-- Rodada Final -->
-    <div class="round final">
-      <h2>Final</h2>
-      <div class="matchup">
-        <div class="team">{{ final.team1 }}</div>
-        <div class="vs">VS</div>
-        <div class="team">{{ final.team2 }}</div>
-      </div>
+        </div>
     </div>
-
-    <!-- Rodada Semi (Espelhada) -->
-    <div class="round">
-      <h2>Semi</h2>
-      <div class="matchup" *ngFor="let match of semi">
-        <div class="team" (click)="selectTeam(match.team1)">
-          {{ match.team1 }}
-        </div>
-        <div class="vs">VS</div>
-        <div class="team" (click)="selectTeam(match.team2)">
-          {{ match.team2 }}
-        </div>
-      </div>
-    </div>
-
-    <!-- Rodada Quartas (Espelhada) -->
-    <div class="round">
-      <h2>Quartas</h2>
-      <div class="matchup" *ngFor="let match of quartas">
-        <div class="team" (click)="selectTeam(match.team1)">
-          {{ match.team1 }}
-        </div>
-        <div class="vs">VS</div>
-        <div class="team" (click)="selectTeam(match.team2)">
-          {{ match.team2 }}
-        </div>
-      </div>
-    </div>
-
-    <!-- Rodada Oitavas (Espelhada) -->
-    <div class="round right">
-      <h2>Oitavas</h2>
-      <div class="matchup" *ngFor="let match of rightBracket">
-        <div class="team" (click)="selectTeam(match.team1)">
-          {{ match.team1 }}
-        </div>
-        <div class="vs">VS</div>
-        <div class="team" (click)="selectTeam(match.team2)">
-          {{ match.team2 }}
-        </div>
-      </div>
-    </div>
-  </div>
 </div>

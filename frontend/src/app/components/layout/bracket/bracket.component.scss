@@ -1,146 +1,54 @@
-.tournament-bracket {
-    padding: 30px;
-    font-family: 'Roboto', sans-serif;
-    background-color: #f4f6f9; /* Cor de fundo mais clara */
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-      font-size: 36px;
-      color: #2c3e50; /* Cor mais sóbria para o título */
-      text-transform: uppercase;
-    }
-  
-    .bracket-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-  
-    .round {
-      width: 220px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 0 25px;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
-  
-      &:hover {
-        transform: scale(1.05);
-      }
-    }
-  
-    .round h2 {
-      text-align: center;
-      color: #16a085; /* Cor verde suave */
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-    }
-  
-    .round.left, .round.right {
-      /* Rodadas Oitavas dos dois lados */
-      display: flex;
-      flex-direction: column-reverse; /* Para espelhar os times */
-    }
-  
-    .matchup {
-      display: flex;
-      justify-content: center;
-      margin: 15px 0;
-      padding: 15px;
-      border: 2px solid #ddd;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s ease-in-out;
-      width: 100%;
-      justify-content: space-between;
-      align-items: center;
-  
-      &:hover {
-        background-color: #ecf0f1;
-        transform: scale(1.02);
-      }
-    }
-  
-    .vs {
-      text-align: center;
-      font-weight: bold;
-      color: #2c3e50;
-      font-size: 18px;
-      padding: 0 15px;
-    }
-  
-    .team {
-      flex: 1;
-      text-align: center;
-      background-color: #2ecc71;
-      color: white;
-      padding: 10px;
-      border-radius: 8px;
-      font-weight: bold;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s ease-in-out;
-  
-      &:hover {
-        background-color: #27ae60;
-        transform: scale(1.05);
-      }
-  
-      &.selected {
-        background-color: #16a085;
-      }
-    }
-  
-    .team:hover {
-      background-color: #27ae60;
-    }
-  
-    .final {
-      background-color: #f39c12;
-    }
-  
-    .final .team {
-      background-color: #f39c12;
-    }
-  
-    .final .team:hover {
-      background-color: #e67e22;
-    }
-  
-    /* Personalização do botão de voltar */
-    .button {
-      background-color: #e74c3c;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      margin-top: 30px;
-      transition: background-color 0.3s;
-  
-      &:hover {
-        background-color: #c0392b;
-      }
-  
-      svg {
-        margin-right: 8px;
-        vertical-align: middle;
-      }
-    }
-  
-    .button-container {
-      display: flex;
-      justify-content: center;
-    }
-  }
-  
+.playoff-page{
+    display: flex;
+    align-items: flex-start;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: calc(-25rem + 100vw);
+    height: 100vh;
+    overflow: hidden;
+    padding: 1rem;
+}
+
+.playoff-box{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 50vh;
+    height: calc(-10rem + 100vh);
+    margin: 4rem auto;
+    padding-right: 3rem;
+    overflow-y: auto;
+}
+
+img{
+    height: auto;
+    max-width: 100%;
+}
+
+.playoff-options{
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin: 0px 2rem 0px 1rem;
+}
+
+.playoff-options div{
+    display: flex;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+}
+
+.playoff-options div div{
+    display: flex;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+}
