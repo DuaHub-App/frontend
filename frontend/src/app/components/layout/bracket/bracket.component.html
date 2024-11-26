@@ -6,7 +6,7 @@
         <h1>Basquete Feminino</h1>
       </div>
       <div id="playoff-options">
-        <div class="options">Ver classificação</div>
+        <button (click)="openModal()" class="options">Ver classificação</button>
         <div class="options">Selecionar outra modalidade</div>
         <div class="options">JPG</div>
         <div class="options">PDF</div>
@@ -14,8 +14,262 @@
       <div class="button">Voltar</div>
     </div>
 
-    <div id="playoff-content" class="playoff-content">
+    <!-- Modal de classificação 
+    <div class="modal" [class.show]="isModalOpen">
+      <div class="modal-head">
+        <h2>Classificação Final </h2>
+        <span class="close" (click)="closeModal()">&times;</span>
+      </div>
+        <div class="modal-body">
+          <div class="modal-body-box">
+            <table role="table">
+              <thead>
+                <tr role="row">
+                  <th colspan="1" role="columnheader">Atlética</th>
+                  <th colspan="1" role="columnheader">Pontos</th>
+                </tr>
+              </thead>
+              
+              <tbody role="rowgroup">
+                <tr role="row">
+                  <td data-label role="cell">
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        gap: 1rem;
+                        margin-left: 1rem;
+                      "
+                    >
+                      1º<img
+                        src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/1d37e74e6cd37b94390f-Logo-AAAU (1).png?alt=media"
+                        alt="icon"
+                        style="width: 3rem; height: 3rem"
+                      />UNIAMÉRICA
+                    </div>
+                  </td>
+                  <td data-label="Pontos" role="cell">12</td>
+                </tr>
+                <tr role="row">
+                  <td data-label="" role="cell">
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        gap: 1rem;
+                        margin-left: 1rem;
+                      "
+                    >
+                      2º<img
+                        src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/e5211928fbffe1815d74-j _page-0001 (1).jpg?alt=media"
+                        alt="icon"
+                        style="width: 3rem; height: 3rem"
+                      />MEDICINA UPE FRANCO
+                    </div>
+                  </td>
+                  <td data-label="Pontos" role="cell">9</td>
+                </tr>
+                <tr role="row">
+                  <td data-label="" role="cell">
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        gap: 1rem;
+                        margin-left: 1rem;
+                      "
+                    >
+                      3º<img
+                        src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/13081a8fe8ae359e65d0-LOGO XV DE ABRIL PNG (1).png?alt=media"
+                        alt="icon"
+                        style="width: 3rem; height: 3rem"
+                      />ENG E ARQ UDC
+                    </div>
+                  </td>
+                  <td data-label="Pontos" role="cell">7</td>
+                </tr>
+                <tr role="row">
+                  <td data-label="" role="cell">
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        gap: 1rem;
+                        margin-left: 1rem;
+                      "
+                    >
+                      4º<img
+                        src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/d1774910fb195dd3644b-Koringa.png?alt=media"
+                        alt="icon"
+                        style="width: 3rem; height: 3rem"
+                      />MEDICINA UPE CDE
+                    </div>
+                  </td>
+                  <td data-label="Pontos" role="cell">5</td>
+                </tr>
+                <tr role="row">
+                  <td data-label="" role="cell">
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        gap: 1rem;
+                        margin-left: 1rem;
+                      "
+                    >
+                      5º<img
+                        src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/298d3fd4613325183803-LOGO_DOSE_LETAL_4.png?alt=media"
+                        alt="icon"
+                        style="width: 3rem; height: 3rem"
+                      />DOSE LETAL UNILA
+                    </div>
+                  </td>
+                  <td data-label="Pontos" role="cell">4</td>
+                </tr>
+                <tr role="row">
+                  <td data-label="" role="cell">
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        gap: 1rem;
+                        margin-left: 1rem;
+                      "
+                    >
+                      6º<img
+                        src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/da3c90319cb239cc06cf-TUCANOS.png?alt=media"
+                        alt="icon"
+                        style="width: 3rem; height: 3rem"
+                      />UNIGUAÇU
+                    </div>
+                  </td>
+                  <td data-label="Pontos" role="cell">3</td>
+                </tr>
+                <tr role="row">
+                  <td data-label="" role="cell">
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        gap: 1rem;
+                        margin-left: 1rem;
+                      "
+                    >
+                      7º<img
+                        src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/f4917b0d778e9a9abc2d-logo.png?alt=media"
+                        alt="icon"
+                        style="width: 3rem; height: 3rem"
+                      />ENG E ARQ UNILA
+                    </div>
+                  </td>
+                  <td data-label="Pontos" role="cell">2</td>
+                </tr>
+                <tr role="row">
+                  <td data-label="" role="cell">
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        gap: 1rem;
+                        margin-left: 1rem;
+                      "
+                    >
+                      8º<img
+                        src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/5e6c99a88ea4692a3a17-Logo - XVIII de março RGB.png?alt=media"
+                        alt="icon"
+                        style="width: 3rem; height: 3rem"
+                      />EXATAS UTFPR-MD
+                    </div>
+                  </td>
+                  <td data-label="Pontos" role="cell">1</td>
+                </tr>
+                <tr role="row">
+                  <td data-label="" role="cell">
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        gap: 1rem;
+                        margin-left: 1rem;
+                      "
+                    >
+                      9º<img
+                        src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/763b952b2a7139ba6c51-LOGO PNG (1).png?alt=media"
+                        alt="icon"
+                        style="width: 3rem; height: 3rem"
+                      />MEDICINA UNILA
+                    </div>
+                  </td>
+                  <td data-label="Pontos" role="cell">0</td>
+                </tr>
+                <tr role="row">
+                  <td data-label="" role="cell">
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        gap: 1rem;
+                        margin-left: 1rem;
+                      "
+                    >
+                      10º<img
+                        src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/b8a0a4586f479d69d8ef-soberana logo 2.png?alt=media"
+                        alt="icon"
+                        style="width: 3rem; height: 3rem"
+                      />MEDICINA UNINTER
+                    </div>
+                  </td>
+                  <td data-label="Pontos" role="cell">0</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+      </div> -->
 
+      <!--
+      <div class="modal-content">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <h2>Classificação</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Posição</th>
+              <th>Time</th>
+              <th>Pontos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let team of classificationData; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ team.name }}</td>
+              <td>{{ team.points }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div> 
+    </div> -->
+
+    <div id="playoff-content" class="playoff-content">
       <div class="oitavas-1">
         <div class="step-title">Oitavas</div>
         <div class="bracket-oitavas">
@@ -31,10 +285,10 @@
                     src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/1d37e74e6cd37b94390f-Logo-AAAU (1).png?alt=media"
                     alt="icon"
                   />
-                  <div>URSO</div>
+                  <span>URSO</span>
                 </div>
                 <div>
-                  <div>-</div>
+                  <span>-</span>
                 </div>
               </div>
               <div class="placar">
@@ -60,10 +314,10 @@
                     src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/298d3fd4613325183803-LOGO_DOSE_LETAL_4.png?alt=media"
                     alt="icon"
                   />
-                  <div>DOSE LETAL</div>
+                  <span>DOSE LETAL</span>
                 </div>
                 <div>
-                  <div>-</div>
+                  <span>-</span>
                 </div>
               </div>
               <div class="placar">
@@ -89,10 +343,10 @@
                     src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/f4917b0d778e9a9abc2d-logo.png?alt=media"
                     alt="icon"
                   />
-                  <div>CARPINCHO</div>
+                  <span>CARPINCHO</span>
                 </div>
                 <div>
-                  <div>-</div>
+                  <span>-</span>
                 </div>
               </div>
               <div class="placar">
@@ -118,10 +372,10 @@
                     src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/13081a8fe8ae359e65d0-LOGO XV DE ABRIL PNG (1).png?alt=media"
                     alt="icon"
                   />
-                  <div>QUATI</div>
+                  <span>QUATI</span>
                 </div>
                 <div>
-                  <div>-</div>
+                  <span>-</span>
                 </div>
               </div>
               <div class="placar">
@@ -136,18 +390,6 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="espaçamento">
-        <div class="step-title"></div>
-        <div
-          style="
-            max-width: 8px;
-            height: 1px;
-            background-color: var(--purple02);
-            margin-top: 9rem;
-          "
-        ></div>
       </div>
 
       <div class="quartas-1">
@@ -165,14 +407,14 @@
                     src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/1d37e74e6cd37b94390f-Logo-AAAU (1).png?alt=media"
                     alt="icon"
                   />
-                  <div>URSO</div>
+                  <span>URSO</span>
                 </div>
                 <div>
                   <img
                     src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/298d3fd4613325183803-LOGO_DOSE_LETAL_4.png?alt=media"
                     alt="icon"
                   />
-                  <div>DOSE LETAL</div>
+                  <span>DOSE LETAL</span>
                 </div>
               </div>
               <div class="placar">
@@ -199,14 +441,14 @@
                     src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/f4917b0d778e9a9abc2d-logo.png?alt=media"
                     alt="icon"
                   />
-                  <div>CARPINCHO</div>
+                  <span>CARPINCHO</span>
                 </div>
                 <div>
                   <img
                     src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/13081a8fe8ae359e65d0-LOGO XV DE ABRIL PNG (1).png?alt=media"
                     alt="icon"
                   />
-                  <div>QUATI</div>
+                  <span>QUATI</span>
                 </div>
               </div>
               <div class="placar">
@@ -217,14 +459,6 @@
                 <div>
                   <div>42</div>
                 </div>
-              </div>
-
-              <div>
-                <div>
-                  <div></div>
-                </div>
-                <div></div>
-                <div></div>
               </div>
             </div>
           </div>
@@ -245,14 +479,14 @@
                   src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/1d37e74e6cd37b94390f-Logo-AAAU (1).png?alt=media"
                   alt="icon"
                 />
-                <div>URSO</div>
+                <span>URSO</span>
               </div>
               <div>
                 <img
                   src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/13081a8fe8ae359e65d0-LOGO XV DE ABRIL PNG (1).png?alt=media"
                   alt="icon"
                 />
-                <div>QUATI</div>
+                <span>QUATI</span>
               </div>
             </div>
             <div class="placar">
@@ -282,14 +516,14 @@
                   src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/1d37e74e6cd37b94390f-Logo-AAAU (1).png?alt=media"
                   alt="icon"
                 />
-                <div>URSO</div>
+                <span>URSO</span>
               </div>
               <div>
                 <img
                   src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/e5211928fbffe1815d74-j _page-0001 (1).jpg?alt=media"
                   alt="icon"
                 />
-                <div>JAGUARES</div>
+                <span>JAGUARES</span>
               </div>
             </div>
             <div class="placar">
@@ -319,14 +553,14 @@
                   src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/e5211928fbffe1815d74-j _page-0001 (1).jpg?alt=media"
                   alt="icon"
                 />
-                <div>JAGUARES</div>
+                <span>JAGUARES</span>
               </div>
               <div>
                 <img
                   src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/d1774910fb195dd3644b-Koringa.png?alt=media"
                   alt="icon"
                 />
-                <div>KORINGA</div>
+                <span>KORINGA</span>
               </div>
             </div>
             <div class="placar">
@@ -357,14 +591,14 @@
                     src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/da3c90319cb239cc06cf-TUCANOS.png?alt=media"
                     alt="icon"
                   />
-                  <div>TUCANOS</div>
+                  <span>TUCANOS</span>
                 </div>
                 <div>
                   <img
                     src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/e5211928fbffe1815d74-j _page-0001 (1).jpg?alt=media"
                     alt="icon"
                   />
-                  <div>JAGUARES</div>
+                  <span>JAGUARES</span>
                 </div>
               </div>
               <div class="placar">
@@ -391,14 +625,14 @@
                     src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/5e6c99a88ea4692a3a17-Logo - XVIII de março RGB.png?alt=media"
                     alt="icon"
                   />
-                  <div>PORCO</div>
+                  <span>PORCO</span>
                 </div>
                 <div>
                   <img
                     src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/d1774910fb195dd3644b-Koringa.png?alt=media"
                     alt="icon"
                   />
-                  <div>KORINGA</div>
+                  <span>KORINGA</span>
                 </div>
               </div>
               <div class="placar">
@@ -430,10 +664,10 @@
                     src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/da3c90319cb239cc06cf-TUCANOS.png?alt=media"
                     alt="icon"
                   />
-                  <div>TUCANOS</div>
+                  <span>TUCANOS</span>
                 </div>
                 <div>
-                  <div>-</div>
+                  <span>-</span>
                 </div>
               </div>
               <div class="placar">
@@ -459,13 +693,13 @@
                     src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/763b952b2a7139ba6c51-LOGO PNG (1).png?alt=media"
                     alt="icon"
                   />
-                  <div>MEDUSA</div>
+                  <span>MEDUSA</span>
                 </div>
                 <div>
                   <img
                     src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/e5211928fbffe1815d74-j _page-0001 (1).jpg?alt=media"
                   />
-                  <div>JAGUARES</div>
+                  <span>JAGUARES</span>
                 </div>
               </div>
               <div class="placar">
@@ -491,14 +725,14 @@
                     src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/5e6c99a88ea4692a3a17-Logo - XVIII de março RGB.png?alt=media"
                     alt="icon"
                   />
-                  <div>PORCO</div>
+                  <span>PORCO</span>
                 </div>
                 <div>
                   <img
                     src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/b8a0a4586f479d69d8ef-soberana logo 2.png?alt=media"
                     alt="icon"
                   />
-                  <div>SOBERANA</div>
+                  <span>SOBERANA</span>
                 </div>
               </div>
               <div class="placar">
@@ -524,10 +758,10 @@
                     src="https://firebasestorage.googleapis.com/v0/b/easygame-8dde0.appspot.com/o/d1774910fb195dd3644b-Koringa.png?alt=media"
                     alt="icon"
                   />
-                  <div>KORINGA</div>
+                  <span>KORINGA</span>
                 </div>
                 <div>
-                  <div>-</div>
+                  <span>-</span>
                 </div>
               </div>
               <div class="placar">
@@ -542,7 +776,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
