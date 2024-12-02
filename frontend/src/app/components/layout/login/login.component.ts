@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import Swal from 'sweetalert2';
+import { Login } from '../../../auth/login';
+import { LoginService } from '../../../auth/login.service';
 
 @Component({
   selector: 'app-login',
@@ -12,25 +14,39 @@ import Swal from 'sweetalert2';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+  login: Login = new Login();
+
   usuario!: string;
   senha!: string;
 
   router = inject(Router);
+  loginService = inject(LoginService);
+
+  constructor() {
+    this.loginService.removerToken();
+  }
 
   logar() {
-    const usuariosValidos = [
-      { usuario: 'admin', senha: 'admin' },
-      { usuario: 'hoesel', senha: 'hoesel' },
-      { usuario: 'ribeiro', senha: 'ribeiro' },
-      { usuario: 'tchola', senha: 'tchola' },
-    ];
+    this.loginService.logar(this.login).subscribe({
+      next: (token) => {
+        if (token)
+          this.loginService.addToken(token), this.router.navigate(['/admin']);
+        else {
+          Swal.fire({
+            title: 'Usuário ou senha incorretos!',
+            icon: 'error',
+          });
+        }
+      },
+      error: (erro) => {
+        Swal.fire({
+          title: 'Usuário ou senha incorretos!',
+          icon: 'error',
+        });
+      },
+    });
 
-    const credencialValida = usuariosValidos.some(
-      (credencial) =>
-        credencial.usuario === this.usuario && credencial.senha === this.senha
-    );
-
-    const Toast = Swal.mixin({
+    /* const Toast = Swal.mixin({
       toast: true,
       position: 'bottom-right',
       showConfirmButton: false,
@@ -54,6 +70,6 @@ export class LoginComponent {
         title: 'Usuário ou senha incorretos!',
         icon: 'error',
       });
-    }
+    } */
   }
 }
