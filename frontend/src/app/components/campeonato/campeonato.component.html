@@ -1,16 +1,14 @@
 <app-menu-campeonato></app-menu-campeonato>
-<app-bracket></app-bracket>
-<app-qualifer-campeonato></app-qualifer-campeonato>
+<router-outlet></router-outlet>
 <div class="container-fluid">
   <div class="col-md-8">
     <table class="table table-hover table-striped text-center" border="4">
       <thead>
         <tr>
           <th>Id</th>
-          <th>Nome</th>
-          <th>Campeonatos</th>
-          <th>Edição</th>
-          @if (inject.hasPermission('USER')) {
+          <th>Campeonato</th>
+          <th>Tabela</th>
+          @if (inject.hasPermission('ADMIN')) {
           <th>
             <button
               class="btn btn-success"
@@ -41,9 +39,12 @@
           <td>{{ Campeonato.id }}</td>
           <td>{{ Campeonato.nome }}</td>
           <td>
-            <p *ngFor="let equipe of Campeonato.equipe">
-              {{ equipe.nome }}
-            </p>
+            <button
+              class="tabela-btn"
+              (click)="tabela()"
+            >
+              →
+            </button>
           </td>
 
           @if (inject.hasPermission('ADMIN')) {

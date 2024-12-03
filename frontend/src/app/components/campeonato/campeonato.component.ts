@@ -1,5 +1,5 @@
 import { Component, inject, NgModule, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd, RouterModule } from '@angular/router';
 import { Campeonato, Equipe } from '../../models/campeonato/campeonato';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -20,7 +20,7 @@ import { LoginService } from '../../auth/login.service';
 @Component({
   selector: 'app-campeonato',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MenuCampeonatoComponent, QualiferCampeonatoComponent, BracketComponent],
+  imports: [CommonModule, ReactiveFormsModule, MenuCampeonatoComponent, QualiferCampeonatoComponent, BracketComponent, RouterModule],
   templateUrl: './campeonato.component.html',
   styleUrls: ['./campeonato.component.scss'],
 })
@@ -47,6 +47,10 @@ export class CampeonatoComponent implements OnInit, OnDestroy {
       idCampeonato: ['', Validators.required, Validators.pattern('^[0-9]*$')],
       equipes: this.fb.array([this.criarEquipe()]), 
     });
+  }
+
+  tabela() {
+    this.router.navigate(['/home/tabela']); 
   }
 
   ngOnInit(): void {

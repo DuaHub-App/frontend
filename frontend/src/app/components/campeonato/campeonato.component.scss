@@ -78,3 +78,16 @@
   background-color: #f1f8e9;
   padding: 15px;
 }
+
+.tabela-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #388e3c;
+  }
+}
