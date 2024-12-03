@@ -16,8 +16,8 @@ import { LoginService } from '../../../auth/login.service';
 export class LoginComponent {
   login: Login = new Login();
 
-  usuario!: string;
-  senha!: string;
+  usuario: string = "";
+  senha: string = "";
 
   router = inject(Router);
   loginService = inject(LoginService);
@@ -27,6 +27,8 @@ export class LoginComponent {
   }
 
   logar() {
+    this.login.username = this.usuario;
+    this.login.password = this.senha;
     this.loginService.logar(this.login).subscribe({
       next: (token) => {
         if (token)

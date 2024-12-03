@@ -10,6 +10,7 @@
           <th>Nome</th>
           <th>Campeonatos</th>
           <th>Edição</th>
+          @if (inject.hasPermission('USER')) {
           <th>
             <button
               class="btn btn-success"
@@ -18,6 +19,7 @@
               Criar Novo Campeonato
             </button>
           </th>
+        }
           <th>
             <form class="d-flex input-group w-auto">
               <input
@@ -43,6 +45,8 @@
               {{ equipe.nome }}
             </p>
           </td>
+
+          @if (inject.hasPermission('ADMIN')) {
           <td>
             <button
               (click)="abrirModal(editarCampeonato, 'edit', i)"
@@ -51,6 +55,7 @@
               Editar
             </button>
           </td>
+        }
         </tr>
       </tbody>
     </table>

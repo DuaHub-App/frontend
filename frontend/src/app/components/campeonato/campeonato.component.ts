@@ -1,4 +1,4 @@
-import { Component, NgModule, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, NgModule, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Campeonato, Equipe } from '../../models/campeonato/campeonato';
 import { CommonModule } from '@angular/common';
@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { MenuCampeonatoComponent } from '../layout/menu-campeonato/menu-campeonato.component';
 import { QualiferCampeonatoComponent } from '../layout/qualifer-campeonato/qualifer-campeonato.component';
 import { BracketComponent } from '../layout/bracket/bracket.component';
+import { LoginService } from '../../auth/login.service';
 
 @Component({
   selector: 'app-campeonato',
@@ -30,6 +31,8 @@ export class CampeonatoComponent implements OnInit, OnDestroy {
   formCreate!: FormGroup;
   editMode: boolean = false;
   campeonatoSelecionado: Campeonato | null = null;
+
+  inject: LoginService = inject(LoginService);
 
   private navigationSubscription!: Subscription;
   constructor(
