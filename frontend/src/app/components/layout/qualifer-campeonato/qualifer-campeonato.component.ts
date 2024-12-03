@@ -1,17 +1,20 @@
 import { CommonModule, NgClass } from '@angular/common';
 import { Component } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-qualifer-campeonato',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './qualifer-campeonato.component.html',
   styleUrl: './qualifer-campeonato.component.scss'
 })
 export class QualiferCampeonatoComponent {
 
-  playoffMessage(modalidade: string) {
-    alert(`Playoffs da modalidade: ${modalidade}`);
+  constructor(private router: Router) {}
+
+  playoff() {
+    this.router.navigate(['/home/playoff']);
   }  
 
   modalidades = [
