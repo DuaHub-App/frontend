@@ -16,8 +16,8 @@ import { LoginService } from '../../../auth/login.service';
 export class LoginComponent {
   login: Login = new Login();
 
-  usuario: string = "";
-  senha: string = "";
+  usuario: string = '';
+  senha: string = '';
 
   router = inject(Router);
   loginService = inject(LoginService);
@@ -29,11 +29,33 @@ export class LoginComponent {
   logar() {
     this.login.username = this.usuario;
     this.login.password = this.senha;
+
+    // Configuração do Toast
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'bottom-right',
+      showConfirmButton: false,
+      timer: 5000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+      },
+    });
+
     this.loginService.logar(this.login).subscribe({
       next: (token) => {
-        if (token)
-          this.loginService.addToken(token), this.router.navigate(['/admin']);
-        else {
+        if (token) {
+          // Adiciona o token ao localStorage e redireciona para a página de admin
+          this.loginService.addToken(token);
+
+          Toast.fire({
+            title: 'Acesso Permitido!',
+            icon: 'success',
+          });
+
+          this.router.navigate(['/admin']);
+        } else {
           Swal.fire({
             title: 'Usuário ou senha incorretos!',
             icon: 'error',
@@ -47,31 +69,5 @@ export class LoginComponent {
         });
       },
     });
-
-    /* const Toast = Swal.mixin({
-      toast: true,
-      position: 'bottom-right',
-      showConfirmButton: false,
-      timer: 5000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer);
-        toast.addEventListener('mouseleave', Swal.resumeTimer);
-      }
-    });
-
-    if (credencialValida) {
-      Toast.fire({
-        title: 'Acesso Permitido!',
-        icon: 'success',
-      });
-
-      this.router.navigate(['/admin']);
-    } else {
-      Swal.fire({
-        title: 'Usuário ou senha incorretos!',
-        icon: 'error',
-      });
-    } */
   }
 }

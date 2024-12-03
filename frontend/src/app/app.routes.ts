@@ -5,9 +5,12 @@ import { PrincipalComponent } from './components/layout/principal/principal.comp
 import { CampeonatoComponent } from './components/campeonato/campeonato.component';
 
 export const routes: Routes = [
-  { path: '', component: CampeonatoComponent, pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: CampeonatoComponent }, 
   { path: 'login', component: LoginComponent },
-  { path: 'admin', component: PrincipalComponent,
+  {
+    path: 'admin',
+    component: PrincipalComponent,
     children: [
       { path: '', component: CampeonatoComponent },
       { path: 'equipe', component: EquipeComponent },
