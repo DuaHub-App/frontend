@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Campeonato } from '../models/campeonato/campeonato';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CampeonatoService {
-  private api = 'http://localhost:8080/campeonatos';
+   api = environment.SERVIDOR+"/campeonatos";
 
   constructor(private http: HttpClient) {}
 

@@ -14,7 +14,7 @@ import com.app.duahub.service.EquipeService;
 
 @RestController
 @RequestMapping("/equipes")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class EquipeController {
 
 	@Autowired

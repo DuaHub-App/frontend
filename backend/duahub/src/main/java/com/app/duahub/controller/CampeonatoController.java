@@ -13,7 +13,7 @@ import com.app.duahub.service.CampeonatoService;
 
 @RestController
 @RequestMapping("/campeonatos")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class CampeonatoController {
 
 	@Autowired
