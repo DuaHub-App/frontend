@@ -45,8 +45,8 @@ public class CampeonatoService {
 	}
 
 	public Campeonato findById(Long id) {
-		Campeonato campeonato = this.campeonatoRepository.findById(id).get();
-		return campeonato;
+	    return this.campeonatoRepository.findById(id)
+	        .orElseThrow(() -> new RuntimeException("Campeonato não encontrado"));
 	}
 
 }

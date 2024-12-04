@@ -23,55 +23,56 @@ public class CampeonatoController {
 	private CampeonatoService campeonatoService;
 
 	@PostMapping
-	public ResponseEntity<String> save(@RequestBody Campeonato campeonato) {
-		try {
-			String message = this.campeonatoService.save(campeonato);
-			return new ResponseEntity<>(message, HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
-	}
+    public ResponseEntity<Object> save(@RequestBody Campeonato campeonato) {
+        try {
+            String message = this.campeonatoService.save(campeonato);
+            return new ResponseEntity<>(message, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erro ao salvar o campeonato: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
-	@PutMapping("/{id}")
-	public ResponseEntity<String> update(@RequestBody Campeonato campeonato,@PathVariable Long id) {
+    // Atualização de campeonato
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> update(@RequestBody Campeonato campeonato, @PathVariable Long id) {
+        try {
+            String message = this.campeonatoService.update(campeonato, id);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erro ao atualizar o campeonato: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
-		try {
-			String message = this.campeonatoService.update(campeonato, id);
-			return new ResponseEntity<>(message, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
-	}
+    // Exclusão de campeonato
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> delete(@PathVariable Long id) {
+        try {
+            String message = this.campeonatoService.delete(id);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erro ao excluir o campeonato: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity<String> delete(@PathVariable Long id) {
-		try {
-			String message = this.campeonatoService.delete(id);
-			return new ResponseEntity<>(message, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
-	}
+    // Buscar todos os campeonatos
+    @GetMapping
+    public ResponseEntity<Object> findAll() {
+        try {
+            List<Campeonato> list = this.campeonatoService.findAll();
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erro ao buscar campeonatos: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
-	@GetMapping
-	public ResponseEntity<List<Campeonato>> findAll(){
-		try {
-			List<Campeonato> list = this.campeonatoService.findAll();
-			return new ResponseEntity<>(list, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
-	}
-
-	@GetMapping("/{id}")
-	public ResponseEntity<Campeonato> findById(@PathVariable Long id) {
-		try {
-			Campeonato campeonato = this.campeonatoService.findById(id);
-			return new ResponseEntity<>(campeonato, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null , HttpStatus.BAD_REQUEST);
-		}
-	}
-
-
+    // Buscar campeonato por ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> findById(@PathVariable Long id) {
+        try {
+            Campeonato campeonato = this.campeonatoService.findById(id);
+            return new ResponseEntity<>(campeonato, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Campeonato não encontrado: " + e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 }

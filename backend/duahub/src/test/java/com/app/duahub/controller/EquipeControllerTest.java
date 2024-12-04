@@ -1,6 +1,7 @@
 package com.app.duahub.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -12,12 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
 import com.app.duahub.entity.Equipe;
 import com.app.duahub.entity.Participante;
-import com.app.duahub.repository.EquipeRepository;
 import com.app.duahub.service.EquipeService;
 
 @SpringBootTest
@@ -87,7 +86,18 @@ public class EquipeControllerTest {
     }
 
     @Test
-    void cenario04_atualizarEquipeComSucesso() {
+    void cenario02_salvarEquipeErro() {
+        Equipe equipe = new Equipe();  // Simulando uma equipe
+        when(equipeService.save(equipe)).thenThrow(new RuntimeException("Erro ao salvar equipe"));
+
+        ResponseEntity<String> retorno = equipeController.save(equipe);
+
+        assertEquals(400, retorno.getStatusCodeValue());  // Status HTTP 400 (Bad Request)
+        assertEquals("Erro ao criar equipe: Erro ao salvar equipe", retorno.getBody());
+    }
+
+    @Test
+    void cenario05_atualizarEquipeComSucesso() {
         equipe.setNome("Equipe Atualizada");
         when(equipeService.update(equipe, 1L)).thenReturn("Equipe atualizada com sucesso!");
 
@@ -98,7 +108,18 @@ public class EquipeControllerTest {
     }
 
     @Test
-    void cenario05_deletarEquipeComSucesso() {
+    void cenario04_atualizarEquipeErro() {
+        Equipe equipe = new Equipe();  // Simulando uma equipe
+        when(equipeService.update(equipe, 1L)).thenThrow(new RuntimeException("Erro ao atualizar equipe"));
+
+        ResponseEntity<String> retorno = equipeController.update(equipe, 1L);
+
+        assertEquals(400, retorno.getStatusCodeValue());  // Status HTTP 400 (Bad Request)
+        assertEquals("Erro ao atualizar equipe: Erro ao atualizar equipe", retorno.getBody());
+    }
+
+    @Test
+    void cenario07_deletarEquipeComSucesso() {
         when(equipeService.delete(1L)).thenReturn("Equipe deletada com sucesso!");
 
         ResponseEntity<String> retorno = equipeController.delete(1L);
@@ -108,21 +129,47 @@ public class EquipeControllerTest {
     }
 
     @Test
-    void cenario06_buscarEquipePorIdComSucesso() {
-        when(equipeService.findById(1L)).thenReturn(equipe);
+    void cenario06_deletarEquipeErro() {
+        when(equipeService.delete(1L)).thenThrow(new RuntimeException("Erro ao deletar equipe"));
 
-        ResponseEntity<Equipe> retorno = equipeController.findById(1L);
+        ResponseEntity<String> retorno = equipeController.delete(1L);
 
-        assertEquals(HttpStatus.OK, retorno.getStatusCode());
-        assertEquals("Equipe A", retorno.getBody().getNome());
+        assertEquals(400, retorno.getStatusCodeValue());  // Status HTTP 400 (Bad Request)
+        assertEquals("Erro ao deletar equipe: Erro ao deletar equipe", retorno.getBody());
     }
 
     @Test
-    void cenario07_buscarEquipePorIdNaoEncontrada() {
-        when(equipeService.findById(1L)).thenThrow(new RuntimeException("Equipe não encontrada"));
+    void cenario09_buscarEquipePorIdComSucesso() {
+        // Inicializando um objeto 'equipe' para o mock
+        Equipe equipe = new Equipe();
+        equipe.setId(1L);
+        equipe.setNome("Equipe A");
 
-        ResponseEntity<Equipe> retorno = equipeController.findById(1L);
+        // Mockando a resposta do serviço
+        when(equipeService.findById(1L)).thenReturn(equipe);
 
-        assertEquals(HttpStatus.BAD_REQUEST, retorno.getStatusCode());
+        // Chamando o método da controller
+        ResponseEntity<Object> retorno = equipeController.findById(1L);  // Ajuste para ResponseEntity<Object>
+
+        // Verificando o código de status e o corpo da resposta
+        assertEquals(HttpStatus.OK, retorno.getStatusCode());  // Verifica se o status é 200 (OK)
+        
+        // O corpo da resposta deve ser do tipo Equipe, então precisamos fazer o cast
+        Equipe equipeRetornada = (Equipe) retorno.getBody();
+        
+        assertEquals("Equipe A", equipeRetornada.getNome());  // Verifica se o nome da equipe é o esperado
+    }
+
+    @Test
+    void cenario10_buscarEquipePorIdNaoEncontrada() {
+        // Mockando o comportamento do serviço para lançar uma exceção
+        doThrow(new RuntimeException("Equipe não encontrada")).when(equipeService).findById(1L);
+
+        // Chamando o método da controller
+        ResponseEntity<Object> retorno = equipeController.findById(1L);
+
+        // Verificando o código de status e o corpo da resposta
+        assertEquals(HttpStatus.BAD_REQUEST, retorno.getStatusCode());  // Verifica se o status é 400 (BAD REQUEST)
+        assertEquals("Equipe não encontrada", retorno.getBody());  // Verifica se a mensagem no corpo é a esperada
     }
 }

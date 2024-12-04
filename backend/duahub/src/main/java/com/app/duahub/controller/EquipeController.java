@@ -24,56 +24,57 @@ public class EquipeController {
 	private EquipeService equipeService;
 
 	@PostMapping
-	public ResponseEntity<String> save(@RequestBody Equipe equipe) {
-		try {
-			String message = this.equipeService.save(equipe);
-			return new ResponseEntity<>(message, HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
-	}
+    public ResponseEntity<String> save(@RequestBody Equipe equipe) {
+        try {
+            String message = this.equipeService.save(equipe);
+            return new ResponseEntity<>(message, HttpStatus.CREATED);
+        } catch (Exception e) {
+            // Retorna a mensagem de erro
+            return new ResponseEntity<>("Erro ao criar equipe: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
-	@PutMapping("/{id}")
-	public ResponseEntity<String> update(@RequestBody Equipe equipe,@PathVariable Long id) {
+    @PutMapping("/{id}")
+    public ResponseEntity<String> update(@RequestBody Equipe equipe, @PathVariable Long id) {
+        try {
+            String message = this.equipeService.update(equipe, id);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } catch (Exception e) {
+            // Retorna a mensagem de erro
+            return new ResponseEntity<>("Erro ao atualizar equipe: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
-		try {
-			String message = this.equipeService.update(equipe, id);
-			return new ResponseEntity<>(message, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
-	}
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        try {
+            String message = this.equipeService.delete(id);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } catch (Exception e) {
+            // Retorna a mensagem de erro
+            return new ResponseEntity<>("Erro ao deletar equipe: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity<String> delete(@PathVariable Long id) {
-		try {
-			String message = this.equipeService.delete(id);
-			return new ResponseEntity<>(message, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
-	}
+    @GetMapping
+    public ResponseEntity<List<Equipe>> findAll() {
+        try {
+            List<Equipe> list = this.equipeService.findAll();
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        } catch (Exception e) {
+            // Retorna a mensagem de erro
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 
-	@GetMapping
-	public ResponseEntity<List<Equipe>> findAll(){
-		try {
-			List<Equipe> list = this.equipeService.findAll();
-			return new ResponseEntity<>(list, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
-	}
-
-	@GetMapping("/{id}")
-	public ResponseEntity<Equipe> findById(@PathVariable Long id) {
-		try {
-			Equipe equipe = this.equipeService.findById(id);
-			return new ResponseEntity<>(equipe, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
-	}
-
-
-
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> findById(@PathVariable Long id) {
+        try {
+            Equipe equipe = this.equipeService.findById(id);
+            return new ResponseEntity<>(equipe, HttpStatus.OK);
+        } catch (Exception e) {
+            // Retorna uma mensagem de erro no corpo da resposta
+            return new ResponseEntity<>("Equipe não encontrada", HttpStatus.BAD_REQUEST);
+        }
+    }
 }
