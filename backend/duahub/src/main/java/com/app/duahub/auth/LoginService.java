@@ -21,19 +21,22 @@ public class LoginService {
 
 	public String logar(Login login) {
 
-		var data = repository.findByUsername(login.getUsername());
-		System.out.println(login.getUsername());
+        // Busca o usuário no repositório
+        Usuario user = repository.findByUsername(login.getUsername())
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-		authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(
-						login.getUsername(),
-						login.getPassword()
-						)
-				);
-		Usuario user = repository.findByUsername(login.getUsername()).get();
-		String jwtToken = jwtService.generateToken(user);
-		
-		return jwtToken;
-	}
+        // Realiza a autenticação
+        authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                login.getUsername(),
+                login.getPassword()
+            )
+        );
+
+        // Gera o token JWT
+        String jwtToken = jwtService.generateToken(user);
+        
+        return jwtToken;
+    }
 
 }

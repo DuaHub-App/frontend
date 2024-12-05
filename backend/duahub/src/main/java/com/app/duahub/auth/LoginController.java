@@ -32,5 +32,4 @@ public class LoginController {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 	}
-
 }
