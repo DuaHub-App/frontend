@@ -5,6 +5,7 @@ import { PrincipalComponent } from './components/layout/principal/principal.comp
 import { CampeonatoComponent } from './components/campeonato/campeonato.component';
 import { QualiferCampeonatoComponent } from './components/layout/qualifer-campeonato/qualifer-campeonato.component';
 import { BracketComponent } from './components/layout/bracket/bracket.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -19,10 +20,12 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
     path: 'admin',
+    canActivate: [AuthGuard],
     component: PrincipalComponent,
     children: [
       { path: '', component: CampeonatoComponent },
       { path: 'equipe', component: EquipeComponent },
     ],
   },
+  { path: '**', redirectTo: '/home' },
 ];
