@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.app.duahub.entity.Equipe;
@@ -24,6 +25,7 @@ public class EquipeController {
 	private EquipeService equipeService;
 
 	@PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> save(@RequestBody Equipe equipe) {
         try {
             String message = this.equipeService.save(equipe);
@@ -35,6 +37,7 @@ public class EquipeController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> update(@RequestBody Equipe equipe, @PathVariable Long id) {
         try {
             String message = this.equipeService.update(equipe, id);
@@ -46,6 +49,7 @@ public class EquipeController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         try {
             String message = this.equipeService.delete(id);
@@ -57,6 +61,7 @@ public class EquipeController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Equipe>> findAll() {
         try {
             List<Equipe> list = this.equipeService.findAll();
@@ -68,6 +73,7 @@ public class EquipeController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> findById(@PathVariable Long id) {
         try {
             Equipe equipe = this.equipeService.findById(id);

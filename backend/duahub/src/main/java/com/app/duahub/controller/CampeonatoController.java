@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.app.duahub.entity.Campeonato;
@@ -23,6 +24,7 @@ public class CampeonatoController {
 	private CampeonatoService campeonatoService;
 
 	@PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> save(@RequestBody Campeonato campeonato) {
         try {
             String message = this.campeonatoService.save(campeonato);
@@ -33,6 +35,7 @@ public class CampeonatoController {
     }
 
     // Atualização de campeonato
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Object> update(@RequestBody Campeonato campeonato, @PathVariable Long id) {
         try {
@@ -44,6 +47,7 @@ public class CampeonatoController {
     }
 
     // Exclusão de campeonato
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id) {
         try {
@@ -55,6 +59,7 @@ public class CampeonatoController {
     }
 
     // Buscar todos os campeonatos
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<Object> findAll() {
         try {
@@ -66,6 +71,7 @@ public class CampeonatoController {
     }
 
     // Buscar campeonato por ID
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<Object> findById(@PathVariable Long id) {
         try {
