@@ -7,10 +7,9 @@ import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
   standalone: true,
   imports: [MdbCollapseModule],
   templateUrl: './menu-campeonato.component.html',
-  styleUrl: './menu-campeonato.component.scss'
+  styleUrl: './menu-campeonato.component.scss',
 })
 export class MenuCampeonatoComponent {
-
   constructor(private router: Router) {}
 
   sair() {
