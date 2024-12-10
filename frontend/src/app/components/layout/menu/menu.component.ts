@@ -23,6 +23,6 @@ export class MenuComponent {
   }
 
   navegarEntreRotas(rota: string) {
-    this.router.navigate([`/menu/${rota}`]); // Navega entre rotas específicas
+    this.router.navigate([`/admin/${rota}`]); // Navega entre rotas específicas
   }
 }

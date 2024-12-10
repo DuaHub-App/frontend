@@ -12,11 +12,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { MenuComponent } from '../layout/menu/menu.component';
+import { MenuCampeonatoComponent } from '../layout/menu-campeonato/menu-campeonato.component';
 
 @Component({
   selector: 'app-equipe',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MenuCampeonatoComponent],
   templateUrl: './equipe.component.html',
   styleUrls: ['./equipe.component.scss'],
 })
