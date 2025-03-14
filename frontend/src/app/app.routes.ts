@@ -13,7 +13,7 @@ export const routes: Routes = [
     path: 'home', 
     component: CampeonatoComponent,
     children: [
-      { path: 'tabela', component: QualiferCampeonatoComponent },
+      { path: '', component: QualiferCampeonatoComponent },
       { path: 'playoff', component: BracketComponent }
     ],
   }, 
