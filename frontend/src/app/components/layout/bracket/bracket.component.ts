@@ -1,7 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
 
 @Component({
   selector: 'app-bracket',
