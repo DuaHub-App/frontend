@@ -1,37 +1,93 @@
 <div class="qualifier-container">
-  <h1>Tabela de Competições</h1>
-  <div class="table-container">
-    <table class="qualifier-table">
-      <thead>
-        <tr>
-          <th>Período</th>
-          <th>Turma</th>
-          <th>Equipes</th>
-          <th>Campeão</th>
-          <th>Playoffs</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of modalidades">
-          <td>
-            <div class="icon-label">
-              <img [src]="item.icon" alt="{{ item.modalidade }}" />
-              <span>{{ item.modalidade }}</span>
-            </div>
-          </td>
-          <td>{{ item.tipo }}</td>
-          <td>{{ item.atleticas }}</td>
-          <td>{{ item.campeao }}</td>
-          <td>
-            <button
-              class="playoff-btn"
-              (click)="playoff()"
-            >
-              →
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+
+  <div class="container mt-4">
+    <div class="highlight-card">
+      <h2>Torneio em Destaque</h2>
+      <img
+        src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fpngtree.com%2Fso%2Fred-logo&psig=AOvVaw29dNxN9ASy55nm-yWlFVb8&ust=1742097898973000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJjnkseai4wDFQAAAAAdAAAAABAJ"
+        alt="Logo do Time" class="team-logo">
+      <h3>Time A</h3>
+      <p><strong>Pontos:</strong> 25</p>
+      <p><strong>Partidas:</strong> 10</p>
+    </div>
+  </div>
+
+  <div class="container mt-4">
+    <div class="highlight-card">
+      <h2>Campeão do Último Torneio</h2>
+      <div class="col-12 d-flex">
+        <div class="col-4"></div>
+        <div class="col-4"><p class="m-0 p-0">Participantes</p></div>
+        <div class="col-4">
+          <p class="m-0 p-0 ps-5 ms-5">Data do torneio</p>
+        </div>
+      </div>
+      <div class="col-12 d-flex align-items-center mt-2">
+        <div class="col-3 d-flex">
+          <img
+            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fpngtree.com%2Fso%2Fred-logo&psig=AOvVaw29dNxN9ASy55nm-yWlFVb8&ust=1742097898973000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJjnkseai4wDFQAAAAAdAAAAABAJ"
+            alt="Logo do Time" class="team-logo">
+          <div>
+            <p class="m-0 p-0 pe-4 me-1">Nome da Equipe</p>
+            <h3 class="ms-3">The Invictous</h3>
+          </div>
+        </div>
+        <div class="col-6 d-flex justify-content-center">
+          <img
+            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fpngtree.com%2Fso%2Fred-logo&psig=AOvVaw29dNxN9ASy55nm-yWlFVb8&ust=1742097898973000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJjnkseai4wDFQAAAAAdAAAAABAJ"
+            alt="Foto Participante" class="team-logo">
+          <img
+            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fpngtree.com%2Fso%2Fred-logo&psig=AOvVaw29dNxN9ASy55nm-yWlFVb8&ust=1742097898973000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJjnkseai4wDFQAAAAAdAAAAABAJ"
+            alt="Foto Participante" class="team-logo">
+          <img
+            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fpngtree.com%2Fso%2Fred-logo&psig=AOvVaw29dNxN9ASy55nm-yWlFVb8&ust=1742097898973000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJjnkseai4wDFQAAAAAdAAAAABAJ"
+            alt="Foto Participante" class="team-logo">
+          <img
+            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fpngtree.com%2Fso%2Fred-logo&psig=AOvVaw29dNxN9ASy55nm-yWlFVb8&ust=1742097898973000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJjnkseai4wDFQAAAAAdAAAAABAJ"
+            alt="Foto Participante" class="team-logo">
+        </div>
+        <div class="col-3 d-flex justify-content-center">
+          <h3>25/11/2024</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div style="margin-left: 8rem;" class="mt-5 mb-2">
+      <h1>Torneios Anteriores</h1>
+      <p class="m-0 p-0 ps-1">Selecione um torneio para visualizar a tabela de classificação</p>
+    </div>
+    <div class="table-container">
+      <table class="qualifier-table">
+        <thead>
+          <tr>
+            <th>Período</th>
+            <th>Equipes</th>
+            <th>Data do Evento</th>
+            <th>Equipe Campeã 🏆</th>
+            <th>Tabela</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of modalidades">
+            <td>
+              <div class="icon-label">
+                <img [src]="item.icon" alt="{{ item.modalidade }}" />
+                <span>{{ item.modalidade }}</span>
+              </div>
+            </td>
+            <td>{{ item.numEquipes }}</td>
+            <td>{{ item.campeao }}</td>
+            <td>{{ item.tipo }}</td>
+            <td>
+              <button class="playoff-btn" (click)="playoff()">
+                →
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
