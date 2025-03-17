@@ -19,7 +19,7 @@ import io.jsonwebtoken.security.Keys;
 
 @Service
 public class JwtServiceGenerator {  
-/*
+
   public String generateToken(Usuario userDetails) {
 	
 	  
@@ -78,5 +78,5 @@ public class JwtServiceGenerator {
       final Claims claims = extractAllClaims(token);
       return claimsResolver.apply(claims);
   }
-*/
+
 }

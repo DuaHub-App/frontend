@@ -29,7 +29,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // Apenas segue a cadeia de filtros sem aplicar nada
         filterChain.doFilter(request, response);
     }
-	/*
+
 	@Autowired
 	private JwtServiceGenerator jwtService;
 
@@ -79,5 +79,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		}
 
 		filterChain.doFilter(request, response);
-	}*/
+	}
 }
