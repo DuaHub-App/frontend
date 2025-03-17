@@ -22,13 +22,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-	
-	@Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, 
-                                    FilterChain filterChain) throws ServletException, IOException {
-        // Apenas segue a cadeia de filtros sem aplicar nada
-        filterChain.doFilter(request, response);
-    }
 
 	@Autowired
 	private JwtServiceGenerator jwtService;
