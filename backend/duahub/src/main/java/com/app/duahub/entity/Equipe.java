@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -17,7 +18,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -34,4 +34,8 @@ public class Equipe {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "equipe_id")
 	private List<Participante> participantes;
+	
+	@ManyToOne
+	@JoinColumn(name = "campeonato_id")
+	private Campeonato campeonato;
 }

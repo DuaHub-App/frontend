@@ -1,22 +1,27 @@
 package com.app.duahub.entity;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import com.app.duahub.service.CampeonatoService.StatusCampeonato;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -29,8 +34,18 @@ public class Campeonato {
 	private Long id;
 	
 	private String nome;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "data_campeonato_id", referencedColumnName = "id")
+	private DataCampeonato dataCampeonato;
 	
-	 @OneToMany
+	@Enumerated(EnumType.STRING)
+	private StatusCampeonato status;
+
+	@OneToMany
 	 @JoinColumn(name = "campeonato_id")
-	 private List<Equipe> equipe;
+	 private List<Partida> partidas;
+	
+	@OneToMany(mappedBy = "campeonato", cascade = CascadeType.ALL)
+	 private List<Equipe> equipes;
+	 
 }
