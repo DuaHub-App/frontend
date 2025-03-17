@@ -80,11 +80,38 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+    .circle {
+      width: 80px;
+      /* Ajuste conforme necessário */
+      height: 80px;
+      /* Deve ser igual à largura para formar um círculo */
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 3px solid #ddd;
+      /* Opcional: Adiciona uma borda ao círculo */
+    }
+  
+    .circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
 .team-logo {
   width: 80px;
   height: 80px;
   border-radius: 50%;
   border: 3px solid white;
+  margin-bottom: 10px;
+}
+
+.team-equipe {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
   margin-bottom: 10px;
 }
 
