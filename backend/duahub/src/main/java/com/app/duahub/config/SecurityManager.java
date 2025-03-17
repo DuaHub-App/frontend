@@ -16,7 +16,7 @@ import com.app.duahub.auth.LoginRepository;
 
 @Configuration
 public class SecurityManager {
-	
+	/*
 	@Autowired
 	private LoginRepository loginRepository;
 	
@@ -47,5 +47,5 @@ public class SecurityManager {
 				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado") );
 	}
 
-
+*/
 }

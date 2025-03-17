@@ -22,7 +22,7 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig  {
-
+/*
 	@Autowired
 	private JwtAuthenticationFilter jwtAuthFilter;
 
@@ -63,5 +63,5 @@ public class SecurityConfig  {
 		return bean;
 	}
 	
-
+*/
 }

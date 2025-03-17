@@ -16,7 +16,7 @@ import com.app.duahub.auth.LoginService;
 @RequestMapping("/api/login")
 @CrossOrigin(origins = "*")
 public class LoginController {
-
+/*
 	@Autowired
 	private LoginService loginService;
 
@@ -31,5 +31,5 @@ public class LoginController {
 			System.out.println(e.getMessage());
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
-	}
+	}*/
 }

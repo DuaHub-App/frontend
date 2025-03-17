@@ -10,7 +10,7 @@ import com.app.duahub.config.JwtServiceGenerator;
 
 @Service
 public class LoginService {
-	
+	/*
 	@Autowired
 	private LoginRepository repository;
 	@Autowired
@@ -38,5 +38,5 @@ public class LoginService {
         
         return jwtToken;
     }
-
+*/
 }
