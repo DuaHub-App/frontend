@@ -1,0 +1,278 @@
+// /* Sidebar Padrão (Aberta) */
+// /* Sidebar */
+// .sidebar {
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     width: 250px;
+//     height: 100%;
+//     background-color: #000;
+//     color: #fff;
+//     padding-top: 60px;
+//     /* Ajuste para não ficar sob a topbar */
+//     z-index: 1050;
+//     /* Maior que a navbar */
+// }
+
+// /* Topbar */
+// .navbar {
+//     z-index: 1100;
+//     /* Mantém a navbar acima */
+// }
+
+// /* Ajustar o conteúdo da página */
+// .main-content {
+//     margin-top: 60px;
+//     /* Para que o conteúdo não fique encoberto pela navbar */
+//     padding-left: 250px;
+//     /* Para não sobrepor a sidebar */
+// }
+
+// /* Sidebar Fechada */
+// .sidebar.closed {
+//     transform: translateX(-200px);
+// }
+
+// /* Botão sempre visível */
+// .toggle-btn {
+//     position: fixed;
+//     top: 20px;
+//     left: 20px;
+//     background-color: #43a047;
+//     color: #fff;
+//     border: none;
+//     padding: 10px;
+//     border-radius: 5px;
+//     cursor: pointer;
+//     z-index: 1001;
+// }
+
+// /* Links de Navegação */
+// .sidebar .nav-links {
+//     list-style-type: none;
+//     padding: 0;
+//     margin: 0;
+//     width: 100%;
+// }
+
+// .sidebar .nav-links li {
+//     width: 100%;
+//     margin-bottom: 10px;
+//     text-align: center;
+// }
+
+// .sidebar .nav-links button {
+//     width: 90%;
+//     text-align: left;
+//     color: #fff;
+//     padding: 10px;
+//     background-color: transparent;
+//     border: none;
+//     transition: all 0.3s;
+// }
+
+// .sidebar .nav-links button:hover {
+//     background-color: #43a047;
+//     color: #fff;
+//     border-radius: 8px;
+// }
+
+// /* Botão Sair */
+// .sidebar .nav-links .btn-danger {
+//     background-color: #e53935;
+// }
+
+// .sidebar .nav-links .btn-danger:hover {
+//     background-color: #d32f2f;
+// }
+
+// .custom-gradient {
+//     background: linear-gradient(to bottom, #2f2f2f, #4b4a4a);
+// }
+
+// .logo-navbar {
+//     height: 60px;
+//     width: auto;
+//     max-height: 100%;
+// }
+
+// .active-link {
+//     background-color: #43a047 !important;
+//     color: #fff;
+//     border-radius: 8px;
+// }
+
+// .app-layout {
+//     display: flex;
+//     height: 100vh;
+//     overflow: hidden;
+// }
+
+// .sidebar {
+//     width: 220px;
+//     background-color: #1b1b1b;
+//     color: white;
+//     padding: 1rem;
+//     display: flex;
+//     flex-direction: column;
+//     transition: width 0.3s;
+// }
+
+// .sidebar.closed {
+//     width: 60px;
+// }
+
+// .toggle-btn {
+//     margin-bottom: 1rem;
+//     background: none;
+//     border: none;
+//     color: white;
+// }
+
+// .nav-links {
+//     list-style: none;
+//     padding: 0;
+// }
+
+// .nav-links li {
+//     margin-bottom: 0.5rem;
+// }
+
+// .nav-links button {
+//     width: 100%;
+//     text-align: left;
+//     padding: 0.5rem 1rem;
+// }
+
+// .nav-links button:hover,
+// .nav-links .active {
+//     background-color: #43a047;
+//     color: #fff;
+//     border-radius: 8px;
+// }
+
+// /* Área Principal */
+// .main-area {
+//     flex: 1;
+//     display: flex;
+//     flex-direction: column;
+//     overflow: hidden;
+// }
+
+// /* Topbar */
+// .topbar {
+//     height: 70px;
+//     flex-shrink: 0;
+//     z-index: 10;
+// }
+
+// /* Conteúdo abaixo da topbar */
+// .content {
+//     flex: 1;
+//     padding: 1rem;
+//     overflow-y: auto;
+//     background-color: #f8f9fa;
+//     /* cor clara padrão */
+// }
+
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Layout principal */
+.layout {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    background-color: #1b1b1b;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    transition: width 0.3s;
+}
+
+.sidebar.closed {
+    width: 80px;
+}
+
+/* Navegação lateral */
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.nav-links li {
+    margin-bottom: 0.5rem;
+}
+
+.nav-links button {
+    width: 100%;
+    text-align: left;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.nav-links button:hover,
+.nav-links .active {
+    background-color: #43a047;
+}
+
+.nav-links .btn-danger {
+    background-color: #e53935;
+    color: white;
+}
+
+.nav-links .btn-danger:hover {
+    background-color: #d32f2f;
+}
+
+/* Conteúdo principal (ao lado da sidebar) */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Topbar somente acima do conteúdo */
+.topbar {
+    height: 60px;
+    background-color: #000;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+/* Conteúdo abaixo da topbar */
+.router-outlet-wrapper {
+    flex: 1;
+    background-color: #f8f9fa;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+/* Logo da navbar */
+.logo-navbar {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
