@@ -1,65 +1,79 @@
-<!-- <div class="container-fluid">
-  <div class="col-md-8">
-    <table class="table table-hover table-striped text-center" border="4">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Campeonato</th>
-          <th>Tabela</th>
-          @if (inject.hasPermission('ADMIN')) {
-          <th>
-            <button
-              class="btn btn-success"
-              (click)="abrirModal(criarEquipe, 'create')"
-            >
-              Criar Novo Campeonato
-            </button>
-          </th>
-        }
-          <th>
-            <form class="d-flex input-group w-auto">
-              <input
-                type="search"
-                class="form-control"
-                placeholder="Type query"
-                aria-label="Search"
-              />
-              <button class="btn btn-outline-success" type="button">
-                Search
-              </button>
-            </form>
-          </th>
-        </tr>
-      </thead>
+<div class="col-12 m-0 p-0">
+  <div class="col-12">
+    <div class="col-12 col-md-12 mt-4">
+      <div class="col-12 col-md-12 d-flex mb-3">
+        <h4 class="mb-3">Lista de Campeonatos</h4>
+        <button type="button" class="btn btn-success ms-auto" (click)="abrirModal(criarEquipe, 'create', 0)">
+          Novo campeonato
+        </button>
+      </div>
+      <div class="table-responsive">
+        <table
+          class="table table-striped table-bordered align-middle text-center"
+        >
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nome do Campeonato</th>
+              <th scope="col">Equipes</th>
+              <th scope="col">Limite</th>
+              <th scope="col">Participantes</th>
+              <th scope="col">Data</th>
+              <th scope="col">Editar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>01</td>
+              <td>Copa Universitária</td>
+              <td>8</td>
+              <td>8/16</td>
+              <td>96</td>
+              <td>10/05/2025</td>
+              <td>
+                <div>
+                  <button class="btn btn-warning me-2" (click)="abrirModal(editarCampeonato, 'edit', 1)"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i></button>
+                  <button class="btn btn-danger"><i class="fa-solid fa-trash-can" style="color: #ffffff;"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>02</td>
+              <td>Torneio dos Calouros</td>
+              <td>16</td>
+              <td>16/16</td>
+              <td>128</td>
+              <td>15/06/2025</td>
+              <td>
+                <div>
+                  <button class="btn btn-warning me-2"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i></button>
+                  <button class="btn btn-danger"><i class="fa-solid fa-trash-can" style="color: #ffffff;"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>03</td>
+              <td>Desafio InterAtléticas</td>
+              <td>12</td>
+              <td>12/16</td>
+              <td>110</td>
+              <td>27/07/2025</td>
+              <td>
+                <div>
+                  <button class="btn btn-warning me-2"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i></button>
+                  <button class="btn btn-danger"><i class="fa-solid fa-trash-can" style="color: #ffffff;"></i></button>
+                </div>
+              </td>
 
-      <tbody>
-        <tr *ngFor="let Campeonato of lista; let i = index">
-          <td>{{ Campeonato.id }}</td>
-          <td>{{ Campeonato.nome }}</td>
-          <td>
-            <button
-              class="tabela-btn"
-              (click)="tabela()"
-            >
-              →
-            </button>
-          </td>
-
-          @if (inject.hasPermission('ADMIN')) {
-          <td>
-            <button
-              (click)="abrirModal(editarCampeonato, 'edit', i)"
-              class="btn btn-success"
-            >
-              Editar
-            </button>
-          </td>
-        }
-        </tr>
-      </tbody>
-    </table>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-</div> -->
+
+  <div class="col-12"></div>
+</div>
 
 <ng-template #editarCampeonato let-modal>
   <div class="modal-header">
