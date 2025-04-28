@@ -1,6 +1,5 @@
 package com.app.duahub.entity;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import com.app.duahub.service.CampeonatoService.StatusCampeonato;
@@ -32,20 +31,29 @@ public class Campeonato {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String nome;
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "data_campeonato_id", referencedColumnName = "id")
 	private DataCampeonato dataCampeonato;
-	
+
 	@Enumerated(EnumType.STRING)
 	private StatusCampeonato status;
 
 	@OneToMany
-	 @JoinColumn(name = "campeonato_id")
-	 private List<Partida> partidas;
-	
+	@JoinColumn(name = "campeonato_id")
+	private List<Partida> partidas;
+
 	@OneToMany(mappedBy = "campeonato", cascade = CascadeType.ALL)
-	 private List<Equipe> equipes;
-	 
+	private List<Equipe> equipes;
+
+	// NOVOS ATRIBUTOS
+	private Integer numeroEquipesPermitidas; // limite de equipes, null = sem limite
+
+	private Integer numeroEquipesExistentes; // número atual de equipes
+
+	@OneToOne
+	@JoinColumn(name = "campeao_id")
+	private Equipe campeao; // equipe campeã
 }

@@ -7,7 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -22,17 +21,15 @@ import lombok.Setter;
 @Setter
 @Table(name = "data_campeonato")
 public class DataCampeonato {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private LocalDate data;
 	private LocalTime horaInicio;
 	private LocalTime horaFim;
-	
-	@OneToOne
-    @JoinColumn(name = "campeonato_id") // Adiciona a FK corretamente
+
+	@OneToOne(mappedBy = "dataCampeonato")
 	private Campeonato campeonato;
-	
 }
