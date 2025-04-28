@@ -7,7 +7,7 @@ export class Campeonato {
   constructor(
     nome: string = '',
     equipe: Equipe[] = [],
-    campeonato: string = ''
+    campeonato: string = '',
   ) {
     this.nome = nome;
     this.equipe = equipe;
@@ -23,4 +23,8 @@ export class Equipe {
     this.id = id;
     this.nome = nome;
   }
+}
+
+export class DataCampeonato {
+  
 }

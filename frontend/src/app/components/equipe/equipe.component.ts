@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Equipe, Participante } from '../../models/equipe/equipe.model';
 import { CommonModule } from '@angular/common';
@@ -36,32 +36,34 @@ export class EquipeComponent implements OnInit, OnDestroy {
     private equipeService: EquipeService,
     private modalService: NgbModal,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
+
   ) {
     this.equipeForm = this.fb.group({
       nomeEquipe: ['', Validators.required], // Nome da equipe
-      idEquipe: ['', [Validators.required, Validators.pattern('^[0-9]*$')]], 
-      participantes: this.fb.array([this.criarParticipante()]), 
-    });
-  }
-
-  ngOnInit(): void {
-    this.listarEquipe();
-
-    this.navigationSubscription = this.router.events.subscribe((event) => {
-      if (
-        event instanceof NavigationEnd &&
-        event.urlAfterRedirects === '/menu/equipe'
-      ) {
-        this.listarEquipe();
-      }
-    });
-
-    this.formCreate = this.fb.group({
-      nomeEquipe: ['', Validators.required],
+      idEquipe: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       participantes: this.fb.array([this.criarParticipante()]),
     });
   }
+
+    ngOnInit(): void {
+      this.listarEquipe();
+
+      this.navigationSubscription = this.router.events.subscribe((event) => {
+        if (
+          event instanceof NavigationEnd &&
+          event.urlAfterRedirects === '/admin/inicio'
+        ) {
+          this.listarEquipe();
+        }
+      });
+
+      this.formCreate = this.fb.group({
+        nomeEquipe: ['', Validators.required],
+        participantes: this.fb.array([this.criarParticipante()]),
+      });
+    }
 
   ngOnDestroy(): void {
     if (this.navigationSubscription) {
@@ -91,7 +93,7 @@ export class EquipeComponent implements OnInit, OnDestroy {
     }
     this.modalService.open(content, { size: 'xl' });
   }
-  
+
   setEquipeData() {
     if (this.equipeSelecionada) {
       this.equipeForm.patchValue({
@@ -142,11 +144,18 @@ export class EquipeComponent implements OnInit, OnDestroy {
     );
   }
 
+  irParaAdmin(): void {
+    this.router.navigateByUrl('/dummy', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/admin/inicio']);
+    });
+  }
+
   atualizarEquipe(equipe: Equipe): void {
     this.equipeService.atualizarEquipe(equipe).subscribe(
       (data) => {
-        console.log('Equipe atualizada com sucesso:', data);
         this.listarEquipe();
+        window.location.reload();
+        this.irParaAdmin();
       },
       (error) => {
         console.error('Erro ao atualizar equipe:', error);
@@ -170,6 +179,7 @@ export class EquipeComponent implements OnInit, OnDestroy {
     const novaEquipe = new Equipe(formData.nomeEquipe, participantes);
 
     this.salvarEquipe(novaEquipe);
+    this.irParaAdmin();
   }
 
   onSubmit(): void {

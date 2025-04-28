@@ -1,5 +1,3 @@
 export const environment = {
-
-    SERVIDOR: "http://10.35.212.252:8080"
-
+    API_URL: "http://localhost:8080"
 };
