@@ -5,21 +5,26 @@ import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { Login } from './login';
 import { Usuario } from './usuario';
 import { environment } from '../../environments/environment';
+import { getApiUrl } from '../config/api-config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
   http = inject(HttpClient);
-  API = environment.SERVIDOR+"/api/login";
+  private API = getApiUrl() + "/login";
+  private API_LOGIN = getApiUrl() + "/api/login";
+
+
 
   constructor() {}
 
   logar(login: Login): Observable<string> {
-    return this.http.post<string>(this.API, login, {
+    return this.http.post<string>(this.API_LOGIN, login, {
       responseType: 'text' as 'json',
     });
   }
+
 
   addToken(token: string) {
     localStorage.setItem('token', token);

@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Campeonato } from '../models/campeonato/campeonato';
-import { environment } from '../../environments/environment';
+import { getApiUrl } from '../config/api-config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CampeonatoService {
-   api = environment.SERVIDOR+"/campeonatos";
+  //  api = environment.SERVIDOR+"/campeonatos";
+  //  api = environment.API_URL+"/campeonatos";
+  private api = getApiUrl() + "/campeonatos";
 
   constructor(private http: HttpClient) {}
 

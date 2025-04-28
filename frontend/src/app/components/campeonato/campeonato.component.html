@@ -2,8 +2,8 @@
   <div class="col-12">
     <div class="col-12 col-md-12 mt-4">
       <div class="col-12 col-md-12 d-flex mb-3">
-        <h4 class="mb-3">Lista de Campeonatos</h4>
-        <button type="button" class="btn btn-success ms-auto" (click)="abrirModal(criarEquipe, 'create', 0)">
+        <h4 class="mb-3">Lista de Campeonato</h4>
+        <button type="button" class="btn btn-success ms-auto" (click)="abrirModal(criarCampeonato, 'create', 0)">
           Novo campeonato
         </button>
       </div>
@@ -23,13 +23,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>01</td>
-              <td>Copa Universitária</td>
+            <tr *ngFor="let campeonato of lista">
+              <td>{{ campeonato.id }}</td>
+              <td>{{ campeonato.nome }}</td>
               <td>8</td>
               <td>8/16</td>
               <td>96</td>
-              <td>10/05/2025</td>
+              <td></td>
               <td>
                 <div>
                   <button class="btn btn-warning me-2" (click)="abrirModal(editarCampeonato, 'edit', 1)"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i></button>
@@ -160,6 +160,46 @@
         </div>
       </div>
     </form>
+  </div>
+</ng-template>
+
+<ng-template #criarCampeonato let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Criar Novo Campeonato</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formCreate">
+      <div class="mb-3">
+        <label for="nomeCampeonato" class="form-label"
+          >Nome do Campeonato</label
+        >
+        <input
+          id="nomeCampeonato"
+          formControlName="nomeCampeonato"
+          class="form-control"
+        />
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <div class="col-md-12 d-flex justify-content-end">
+      <button type="submit" (click)="modal.dismiss()" class="btn btn-danger">
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        (click)="onSubmitCreate(); modal.dismiss()"
+        class="btn btn-success ms-4"
+      >
+        Criar Campeonato
+      </button>
+    </div>
   </div>
 </ng-template>
 

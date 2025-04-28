@@ -3,12 +3,14 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Equipe } from '../models/equipe/equipe.model';
 import { environment } from '../../environments/environment';
+import { getApiUrl } from '../config/api-config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EquipeService {
-  api = environment.SERVIDOR+"/equipes";
+  private api = getApiUrl() + "/campeonatos";
+
 
   constructor(private http: HttpClient) {}
 
