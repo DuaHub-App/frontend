@@ -25,4 +25,8 @@ export class EquipeService {
   atualizarEquipe(equipe: Equipe): Observable<Equipe> {
     return this.http.put<Equipe>(`${this.api}`, equipe);
   }
+
+  salvarEquipesAoCampeonato(idCampeonato: number, equipes: any[]): Observable<any> {
+    return this.http.post(`${this.api}/campeonatos/${idCampeonato}/equipes`, equipes);
+  }
 }

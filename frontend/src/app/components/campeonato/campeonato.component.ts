@@ -1,81 +1,174 @@
-import { Component, inject, NgModule, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd, RouterModule } from '@angular/router';
-import { Campeonato, Equipe } from '../../models/campeonato/campeonato';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router, NavigationEnd } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CampeonatoService } from '../../service/campeonato.service';
-import { 
-  FormArray, 
-  FormBuilder, 
-  FormGroup, 
-  ReactiveFormsModule, 
-  Validators
-} from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { MenuCampeonatoComponent } from '../layout/menu-campeonato/menu-campeonato.component';
-import { QualiferCampeonatoComponent } from '../layout/qualifer-campeonato/qualifer-campeonato.component';
-import { BracketComponent } from '../layout/bracket/bracket.component';
-import { LoginService } from '../../auth/login.service';
+
+import { CampeonatoService } from '../../service/campeonato.service';
+import { EquipeService } from '../../service/equipe.service';
+import { Campeonato, StatusCampeonato } from '../../models/campeonato/campeonato';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-campeonato',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MenuCampeonatoComponent, QualiferCampeonatoComponent, BracketComponent, RouterModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './campeonato.component.html',
   styleUrls: ['./campeonato.component.scss'],
 })
 export class CampeonatoComponent implements OnInit, OnDestroy {
   lista: Campeonato[] = [];
-  campeonato: Campeonato = new Campeonato();
+  campeonatoSelecionado!: Campeonato;
+  editMode = false;
+  statusOptions = Object.values(StatusCampeonato);
+  navigationSubscription!: Subscription;
+
   campeonatoForm!: FormGroup;
   formCreate!: FormGroup;
-  editMode: boolean = false;
-  campeonatoSelecionado: Campeonato | null = null;
+  equipesForm!: FormGroup;
 
-  inject: LoginService = inject(LoginService);
-
-  private navigationSubscription!: Subscription;
   constructor(
     private fb: FormBuilder,
     private campeonatoService: CampeonatoService,
+    private equipeService: EquipeService,
     private modalService: NgbModal,
-    private router: Router,
-    private route: ActivatedRoute
+    private router: Router
   ) {
-    this.campeonatoForm = this.fb.group({
-      nomeCampeonato: ['', Validators.required],  
-      idCampeonato: ['', Validators.required, Validators.pattern('^[0-9]*$')],
-      equipes: this.fb.array([this.criarEquipe()]), 
-    });
-  }
-
-  tabela() {
-    this.router.navigate(['/home/tabela']); 
+    this.initForms();
   }
 
   ngOnInit(): void {
     this.listarCampeonatos();
-
-    this.navigationSubscription = this.router.events.subscribe((event) => {
-      if (
-        event instanceof NavigationEnd &&
-        event.urlAfterRedirects === '/menu/campeonato'
-      ) {
-        this.listarCampeonatos();
-      }
-    });
-
-    this.formCreate = this.fb.group({
-      nomeCampeonato: ['', Validators.required],
-      equipes: this.fb.array([this.criarEquipe()]),
-    });
+    this.setupNavigation();
   }
 
   ngOnDestroy(): void {
-    if (this.navigationSubscription) {
-      this.navigationSubscription.unsubscribe();
+    this.navigationSubscription?.unsubscribe();
+  }
+
+  private initForms(): void {
+    this.campeonatoForm = this.fb.group({
+      id: [null],
+      nome: ['', Validators.required],
+      dataCampeonato: this.fb.group({
+        data: ['', Validators.required],
+        horaInicio: ['', Validators.required],
+        horaFim: ['', Validators.required]
+      }),
+      status: [StatusCampeonato.PENDENTE, Validators.required]
+    });
+
+    this.formCreate = this.fb.group({
+      nome: ['', Validators.required],
+      dataCampeonato: this.fb.group({
+        data: ['', Validators.required],
+        horaInicio: ['', Validators.required],
+        horaFim: ['', Validators.required]
+      }),
+      status: [StatusCampeonato.PENDENTE, Validators.required]
+    });
+
+    this.equipesForm = this.fb.group({
+      equipes: this.fb.array([])
+    });
+  }
+
+  private setupNavigation(): void {
+    this.navigationSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd && event.urlAfterRedirects === '/menu/campeonato') {
+        this.listarCampeonatos();
+      }
+    });
+  }
+
+  private criarEquipeFormGroup(): FormGroup {
+    return this.fb.group({
+      nome: ['', Validators.required],
+      participantes: this.fb.array([
+        this.criarParticipanteFormGroup()
+      ], [Validators.minLength(1), Validators.maxLength(4)])
+    });
+  }
+
+  private criarParticipanteFormGroup(): FormGroup {
+    return this.fb.group({ nome: ['', Validators.required] });
+  }
+
+  get equipesArray(): FormArray {
+    return this.equipesForm.get('equipes') as FormArray;
+  }
+
+  adicionarEquipe(): void {
+    this.equipesArray.push(this.criarEquipeFormGroup());
+  }
+
+  removerEquipe(index: number): void {
+    if (this.equipesArray.length > 1) {
+      this.equipesArray.removeAt(index);
     }
   }
+
+  adicionarParticipante(eIndex: number): void {
+    const participantes = (this.equipesArray.at(eIndex).get('participantes') as FormArray);
+    if (participantes.length < 4) {
+      participantes.push(this.criarParticipanteFormGroup());
+    }
+  }
+
+  removerParticipante(eIndex: number, pIndex: number): void {
+    const participantes = (this.equipesArray.at(eIndex).get('participantes') as FormArray);
+    if (participantes.length > 1) {
+      participantes.removeAt(pIndex);
+    }
+  }
+
+  salvarEquipes(): void {
+    const payload = this.equipesArray.value.map((equipe: any) => ({
+      nome: equipe.nome,
+      participantes: equipe.participantes.map((p: any) => ({ nome: p.nome }))
+    }));
+    this.equipeService
+      .salvarEquipesAoCampeonato(this.campeonatoSelecionado.id!, payload)
+      .subscribe(() => this.listarCampeonatos());
+  }
+
+  abrirModal(
+    template: any,
+    action: 'create' | 'edit' | 'addEquipes',
+    index?: number
+  ): void {
+    if (action === 'create') {
+      this.editMode = false;
+      this.formCreate.reset({ status: StatusCampeonato.PENDENTE });
+      this.modalService.open(template, { size: 'xl' });
+
+    } else if (action === 'edit' && index != null) {
+      this.editMode = true;
+      this.campeonatoSelecionado = this.lista[index];
+      this.setCampeonatoData();
+      this.modalService.open(template, { size: 'xl' });
+
+    } else if (action === 'addEquipes' && index != null) {
+      this.campeonatoSelecionado = this.lista[index];
+      this.equipesForm = this.fb.group({
+        equipes: this.fb.array([this.criarEquipeFormGroup()])
+      });
+      this.modalService.open(template, { size: 'lg' });
+    }
+  }
+
+  private setCampeonatoData(): void {
+    this.campeonatoForm.patchValue({
+      id: this.campeonatoSelecionado.id,
+      nome: this.campeonatoSelecionado.nome,
+      status: this.campeonatoSelecionado.status,
+      dataCampeonato: this.campeonatoSelecionado.dataCampeonato!
+    });
+  }
+
+  // listarCampeonatos(): void {
+  //   this.campeonatoService.getCampeonatos().subscribe(data => (this.lista = data));
+  // }
 
   listarCampeonatos(): void {
     this.campeonatoService.getCampeonatos().subscribe(
@@ -83,218 +176,70 @@ export class CampeonatoComponent implements OnInit, OnDestroy {
         this.lista = data;
       },
       (error) => {
-        console.error('Erro ao carregar campeonatos', error);
+        console.error('Erro ao carregar equipes', error);
       }
     );
   }
 
-  abrirModal(content: any, action: string, index?: number) {
-    if (action === 'create') {
-      this.editMode = false;
-      this.campeonatoForm.reset();
-    } else if (action === 'edit' && index !== undefined) {
-      this.editMode = true;
-      this.campeonatoSelecionado = this.lista[index];
-      this.setCampeonatoData();
-    }
-    this.modalService.open(content, { size: 'xl' });
-  }
 
-  setCampeonatoData() {
-    if (this.campeonatoSelecionado) {
-      this.campeonatoForm.patchValue({
-        idCampeonato: this.campeonatoSelecionado.id,
-        nomeCampeonato: this.campeonatoSelecionado.nome,
-      });
-
-      this.campeonatoSelecionado.equipe.forEach((equipe, index) => {
-        if (index > 0) {
-          this.adicionarEquipe();
-        }
-        this.equipes.at(index).patchValue({
-          nome: equipe.nome,
-          id: equipe.id,
-        });
-      });
-    }
-  }
-
-  criarEquipe(): FormGroup {
-    return this.fb.group({
-      nome: ['', Validators.required],
-      id: [null],
-    });
-  }
-
-  get equipes(): FormArray {
-    return this.formCreate.get('equipes') as FormArray;
-  }
-
-  adicionarEquipe(): void {
-    this.equipes.push(this.criarEquipe());
-  }
-
-  removerEquipe(index: number): void {
-    this.equipes.removeAt(index);
-  }
-
-  salvarCampeonato(campeonato: Campeonato) {
-    this.campeonatoService.salvarCampeonato(campeonato).subscribe(
-      (data) => {
-        console.log('Campeonato salvo com sucesso:', data);
-        this.listarCampeonatos();
-      },
-      (error) => {
-        console.error('Erro ao salvar campeonato:', error);
-      }
-    );
-  }
-
-  atualizarCampeonato(campeonato: Campeonato) {
-    this.campeonatoService.atualizarCampeonato(campeonato).subscribe(
-      (data) => {
-        console.log('Campeonato atualizado com sucesso:', data);
-        this.listarCampeonatos();
-      },
-      (error) => {
-        console.error('Erro ao atualizar campeonato:', error);
-      }
-    );
-  }
-
+  // Métodos de submit para criação e edição
   onSubmitCreate(): void {
     if (this.formCreate.invalid) {
       this.formCreate.markAllAsTouched();
       return;
     }
-
-    const formData = this.formCreate.value;
-
-    const equipes: Equipe[] = formData.equipes.map(
-      (equipe: any) => 
-        new Equipe(equipe.id, equipe.nome)
-    );
-     
-    const novoCampeonato = new Campeonato(formData.nomeCampeonato, equipes);
-
-    this.salvarCampeonato(novoCampeonato);
+    const formValue = this.formCreate.value;
+    const novoCampeonato: Campeonato = {
+      nome: formValue.nome,
+      status: formValue.status,
+      dataCampeonato: {
+        data: formValue.dataCampeonato.data,
+        horaInicio: formValue.dataCampeonato.horaInicio,
+        horaFim: formValue.dataCampeonato.horaFim
+      },
+      equipes: [],
+      partidas: []
+    };
+    this.campeonatoService.salvarCampeonato(novoCampeonato).subscribe({
+      next: () => {
+        this.modalService.dismissAll();
+        this.listarCampeonatos();
+      },
+      error: err => console.error('Erro ao salvar campeonato:', err)
+    });
   }
 
   onSubmit(): void {
-
     if (this.campeonatoForm.invalid) {
       this.campeonatoForm.markAllAsTouched();
       return;
     }
-
-    const campeonatoData = this.campeonatoForm.value;
-
-    const equipes: Equipe[] = campeonatoData.equipes.map(
-      (equipe: any) => 
-        new Equipe(equipe.id, equipe.nome)
-    );
-
-    if (this.editMode && this.campeonatoSelecionado && this.campeonatoSelecionado.id) {
-      const campeonatoAtualizado: Campeonato = {
-        id: this.campeonatoSelecionado.id,
-        nome: campeonatoData.nomeCampeonato,
-        campeonato: campeonatoData.campeonato,
-        equipe: equipes,
-      };
-
-      this.atualizarCampeonato(campeonatoAtualizado);
-    } else {
-      const novoCampeonato: Campeonato = {
-        nome: campeonatoData.nomeCampeonato,
-        campeonato: campeonatoData.campeonato,
-        equipe: equipes,
-      };
-
-      this.salvarCampeonato(novoCampeonato);
-    }
+    const formValue = this.campeonatoForm.value;
+    const campeonatoAtualizado: Campeonato = {
+      id: formValue.id,
+      nome: formValue.nome,
+      status: formValue.status,
+      dataCampeonato: {
+        data: formValue.dataCampeonato.data,
+        horaInicio: formValue.dataCampeonato.horaInicio,
+        horaFim: formValue.dataCampeonato.horaFim
+      },
+      equipes: this.campeonatoSelecionado?.equipes || [],
+      partidas: this.campeonatoSelecionado?.partidas || []
+    };
+    this.campeonatoService.atualizarCampeonato(campeonatoAtualizado).subscribe({
+      next: () => {
+        this.modalService.dismissAll();
+        this.listarCampeonatos();
+      },
+      error: err => console.error('Erro ao atualizar campeonato:', err)
+    });
   }
 
-  playoff() {
-    this.router.navigate(['/home/playoff']);
+  // Adicione este método no seu componente para retornar o FormArray de participantes:
+  getParticipantes(eIndex: number): FormArray {
+    return (this.equipesForm.get('equipes') as FormArray)
+      .at(eIndex)
+      .get('participantes') as FormArray;
   }
-
-  modalidades = [
-    {
-      icon: '/assets/images/easy/1.svg',
-      modalidade: '1º Período',
-      tipo: 'Turma A',
-      atleticas: 10,
-      campeao: 'UNIAMÉRICA'
-    },
-    {
-      icon: '/assets/images/easy/2.svg',
-      modalidade: '1º Período',
-      tipo: 'Turma B',
-      atleticas: 14,
-      campeao: 'UNIAMÉRICA'
-    },
-    {
-      modalidade: '1º Período',
-      tipo: 'Turma C',
-      atleticas: 15,
-      campeao: 'EXATAS UTFPR-MD',
-      icon: '/assets/images/easy/3.svg'
-    },
-    {
-      modalidade: '1º Período',
-      tipo: 'Turma D',
-      atleticas: 15,
-      campeao: 'UNIGUAÇU',
-      icon: '/assets/images/easy/4.svg'
-    },
-    {
-      modalidade: '1º Período',
-      tipo: 'Turma E',
-      atleticas: 14,
-      campeao: 'UNIGUAÇU',
-      icon: '/assets/images/easy/5.svg'
-    },
-    {
-      modalidade: '1º Período',
-      tipo: 'Turma F',
-      atleticas: 14,
-      campeao: 'UNIGUAÇU',
-      icon: '/assets/images/easy/6.svg'
-    },
-    {
-      modalidade: '1º Período',
-      tipo: 'Turma G',
-      atleticas: 10,
-      campeao: 'UNIGUAÇU',
-      icon: '/assets/images/easy/7.svg'
-    },
-    {
-      modalidade: '1º Período',
-      tipo: 'Turma H',
-      atleticas: 14,
-      campeao: 'UNIAMÉRICA',
-      icon: '/assets/images/easy/8.svg'
-    },
-    {
-      modalidade: '1º Período',
-      tipo: 'Turma I',
-      atleticas: 14,
-      campeao: 'UNIGUAÇU',
-      icon: '/assets/images/easy/9.svg'
-    },
-    {
-      modalidade: '1º Período',
-      tipo: 'Turma J',
-      atleticas: 15,
-      campeao: 'MEDICINA UPE CDE',
-      icon: '/assets/images/easy/10.svg'
-    },
-    {
-      modalidade: '1º Período',
-      tipo: 'Turma K',
-      atleticas: 14,
-      campeao: 'ENG E ARQ UDC',
-      icon: '/assets/images/easy/1.svg'
-    }
-  ];
 }

@@ -3,6 +3,7 @@ package com.app.duahub.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.app.duahub.dto.EquipeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +25,8 @@ public class EquipeController {
 	@Autowired
 	private EquipeService equipeService;
 
-	@PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+ /*   @PostMapping
+  @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> save(@RequestBody Equipe equipe) {
         try {
             String message = this.equipeService.save(equipe);
@@ -35,6 +36,18 @@ public class EquipeController {
             return new ResponseEntity<>("Erro ao criar equipe: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+*/
+
+ @PostMapping
+ @PreAuthorize("hasRole('ADMIN')")
+ public ResponseEntity<EquipeDTO> save(@RequestBody EquipeDTO equipeDTO) {
+     try {
+         EquipeDTO equipeCriada = this.equipeService.save(equipeDTO);
+         return new ResponseEntity<>(equipeCriada, HttpStatus.CREATED);
+     } catch (Exception e) {
+         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+     }
+ }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")

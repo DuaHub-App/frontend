@@ -18,9 +18,12 @@ import org.springframework.http.ResponseEntity;
 import com.app.duahub.entity.Equipe;
 import com.app.duahub.entity.Participante;
 import com.app.duahub.service.EquipeService;
+import com.app.duahub.dto.EquipeDTO;
 
 @SpringBootTest
 public class EquipeControllerTest {
+
+    private EquipeDTO equipeDTO;
 
 	@Autowired
 	EquipeController equipeController;
@@ -49,9 +52,15 @@ public class EquipeControllerTest {
         equipe.setNome("Equipe A");
         equipe.setParticipantes(List.of(participante1, participante2));
 
+        equipeDTO = new EquipeDTO();
+        equipeDTO.setNome("Equipe A");
+        equipeDTO.setParticipantesIds(List.of(1L, 2L));
+
         listaEquipes = List.of(equipe);
         listaVazia = new ArrayList<>();
     }
+
+
 
     @Test
     void cenario01_retornaListaVaziaDeEquipes() {
@@ -79,7 +88,7 @@ public class EquipeControllerTest {
     void cenario03_salvarEquipeComSucesso() {
         when(equipeService.save(equipe)).thenReturn("Equipe criada com sucesso!");
 
-        ResponseEntity<String> retorno = equipeController.save(equipe);
+        ResponseEntity<EquipeDTO> retorno = equipeController.save(equipeDTO);
 
         assertEquals(HttpStatus.CREATED, retorno.getStatusCode());
         assertEquals("Equipe criada com sucesso!", retorno.getBody());
@@ -90,7 +99,7 @@ public class EquipeControllerTest {
         Equipe equipe = new Equipe();  // Simulando uma equipe
         when(equipeService.save(equipe)).thenThrow(new RuntimeException("Erro ao salvar equipe"));
 
-        ResponseEntity<String> retorno = equipeController.save(equipe);
+        ResponseEntity<EquipeDTO> retorno = equipeController.save(equipeDTO);
 
         assertEquals(400, retorno.getStatusCodeValue());  // Status HTTP 400 (Bad Request)
         assertEquals("Erro ao criar equipe: Erro ao salvar equipe", retorno.getBody());

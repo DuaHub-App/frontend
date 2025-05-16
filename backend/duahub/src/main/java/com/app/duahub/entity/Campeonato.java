@@ -1,31 +1,20 @@
 package com.app.duahub.entity;
 
-import java.util.List;
-
-import com.app.duahub.service.CampeonatoService.StatusCampeonato;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name = "campeonatos")
 @Getter
 @Setter
-@Table(name = "campeonatos")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Campeonato {
 
 	@Id
@@ -46,14 +35,14 @@ public class Campeonato {
 	private List<Partida> partidas;
 
 	@OneToMany(mappedBy = "campeonato", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private List<Equipe> equipes;
 
-	// NOVOS ATRIBUTOS
-	private Integer numeroEquipesPermitidas; // limite de equipes, null = sem limite
+	private Integer numeroEquipesPermitidas;
 
-	private Integer numeroEquipesExistentes; // número atual de equipes
+	private Integer numeroEquipesExistentes;
 
 	@OneToOne
 	@JoinColumn(name = "campeao_id")
-	private Equipe campeao; // equipe campeã
+	private Equipe campeao;
 }
