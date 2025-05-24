@@ -21,32 +21,32 @@ public class CampeonatoController {
     private final CampeonatoBusinessService businessService;
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasAuthority('admin-geral')")
     public ResponseEntity<Campeonato> criar(@RequestBody Campeonato campeonato) {
         return ResponseEntity.ok(campeonatoService.salvar(campeonato));
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasAuthority('admin-geral')")
     public ResponseEntity<Campeonato> atualizar(@RequestBody Campeonato campeonato, @PathVariable Long id) {
         return ResponseEntity.ok(campeonatoService.atualizar(campeonato, id));
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasAuthority('admin-geral')")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         campeonatoService.deletar(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasAuthority('admin-geral')")
     public ResponseEntity<List<CampeonatoDTO>> listarTodos() {
         return ResponseEntity.ok(campeonatoService.listarTodosComoDTO());
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasAuthority('admin-geral')")
     public ResponseEntity<Campeonato> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(campeonatoService.buscarPorId(id)
                 .orElseThrow(() -> new RuntimeException("Campeonato não encontrado")));
@@ -77,13 +77,13 @@ public class CampeonatoController {
 //    }
 
     @PutMapping("/{id}/iniciar")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasAuthority('admin-geral')")
     public ResponseEntity<Campeonato> iniciar(@PathVariable Long id) {
         return ResponseEntity.ok(businessService.iniciarCampeonato(id));
     }
 
     @PutMapping("/{id}/finalizar")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasAuthority('admin-geral')")
     public ResponseEntity<Campeonato> finalizar(@PathVariable Long id) {
         return ResponseEntity.ok(businessService.finalizarCampeonato(id));
     }

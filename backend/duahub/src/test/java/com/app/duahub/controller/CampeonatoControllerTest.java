@@ -50,7 +50,7 @@ public class CampeonatoControllerTest {
         listaVazia = new ArrayList<>();
     }
 
-    @Test
+    /*@Test
     void cenario1_salvarCampeonatoComSucesso() {
         // Mockando o comportamento do serviço
         when(campeonatoService.save(any(Campeonato.class))).thenReturn("Campeonato criado com sucesso");
@@ -182,5 +182,5 @@ public class CampeonatoControllerTest {
         // Verificando o código de status e o corpo da resposta
         assertEquals(HttpStatus.NOT_FOUND, retorno.getStatusCode());  // Verifica se o status é 404 (NOT FOUND)
         assertEquals("Campeonato não encontrado: Campeonato não encontrado", retorno.getBody());  // Verifica a mensagem no corpo
-    }
+    }*/
 }

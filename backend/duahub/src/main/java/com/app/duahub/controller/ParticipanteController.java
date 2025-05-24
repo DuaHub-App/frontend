@@ -26,7 +26,7 @@ public class ParticipanteController {
 	@Autowired ParticipanteService participanteService;
 
 	@PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('admin-geral')")
     public ResponseEntity<Object> save(@RequestBody Participante participante) {
         try {
             String message = this.participanteService.save(participante);
@@ -37,7 +37,7 @@ public class ParticipanteController {
     }
 
     // Atualização de participante
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('admin-geral')")
     @PutMapping("/{id}")
     public ResponseEntity<Object> update(@RequestBody Participante participante, @PathVariable Long id) {
         try {
@@ -49,7 +49,7 @@ public class ParticipanteController {
     }
 
     // Exclusão de participante
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('admin-geral')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id) {
         try {
@@ -61,7 +61,7 @@ public class ParticipanteController {
     }
 
     // Buscar todos os participantes
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('admin-geral')")
     @GetMapping
     public ResponseEntity<Object> findAll() {
         try {
@@ -73,7 +73,7 @@ public class ParticipanteController {
     }
 
     // Buscar participante por ID
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('admin-geral')")
     @GetMapping("/{id}")
     public ResponseEntity<Object> findById(@PathVariable Long id) {
         try {

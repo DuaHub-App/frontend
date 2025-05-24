@@ -39,7 +39,7 @@ public class EquipeController {
 */
 
  @PostMapping
- @PreAuthorize("hasRole('ADMIN')")
+ @PreAuthorize("hasAuthority('admin-geral')")
  public ResponseEntity<EquipeDTO> save(@RequestBody EquipeDTO equipeDTO) {
      try {
          EquipeDTO equipeCriada = this.equipeService.save(equipeDTO);
@@ -50,7 +50,7 @@ public class EquipeController {
  }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('admin-geral')")
     public ResponseEntity<String> update(@RequestBody Equipe equipe, @PathVariable Long id) {
         try {
             String message = this.equipeService.update(equipe, id);
@@ -62,7 +62,7 @@ public class EquipeController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('admin-geral')")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         try {
             String message = this.equipeService.delete(id);
@@ -74,7 +74,7 @@ public class EquipeController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('admin-geral')")
     public ResponseEntity<List<Equipe>> findAll() {
         try {
             List<Equipe> list = this.equipeService.findAll();
@@ -86,7 +86,7 @@ public class EquipeController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('admin-geral')")
     public ResponseEntity<Object> findById(@PathVariable Long id) {
         try {
             Equipe equipe = this.equipeService.findById(id);

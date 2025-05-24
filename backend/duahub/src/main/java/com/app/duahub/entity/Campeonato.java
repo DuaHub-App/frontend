@@ -24,11 +24,12 @@ public class Campeonato {
 	private String nome;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "data_campeonato_id", referencedColumnName = "id")
+	@JoinColumn(name = "data_campeonato_id", referencedColumnName = "id", nullable = true)
 	private DataCampeonato dataCampeonato;
 
 	@Enumerated(EnumType.STRING)
-	private StatusCampeonato status;
+	@Column(nullable = false)
+	private StatusCampeonato status = StatusCampeonato.PENDENTE;
 
 	@OneToMany
 	@JoinColumn(name = "campeonato_id")
