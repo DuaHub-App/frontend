@@ -1,273 +1,257 @@
 <div class="col-12 m-0 p-0">
-  <div class="col-12">
-    <div class="col-12 col-md-12 mt-4">
-      <div class="col-12 col-md-12 d-flex mb-3">
-        <h4 class="mb-3">Lista de Campeonato</h4>
-        <button type="button" class="btn btn-success ms-auto" (click)="abrirModal(criarCampeonato, 'create', 0)">
-          Novo campeonato
-        </button>
-      </div>
-      <div class="table-responsive">
-        <table
-          class="table table-striped table-bordered align-middle text-center"
-        >
-          <thead class="table-dark">
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Nome do Campeonato</th>
-              <th scope="col">Equipes</th>
-              <th scope="col">Limite</th>
-              <th scope="col">Participantes</th>
-              <th scope="col">Data</th>
-              <th scope="col">Editar</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let campeonato of lista">
-              <td>{{ campeonato.id }}</td>
-              <td>{{ campeonato.nome }}</td>
-              <td>8</td>
-              <td>8/16</td>
-              <td>96</td>
-              <td></td>
-              <td>
-                <div>
-                  <button class="btn btn-warning me-2" (click)="abrirModal(editarCampeonato, 'edit', 1)"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i></button>
-                  <button class="btn btn-danger"><i class="fa-solid fa-trash-can" style="color: #ffffff;"></i></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>02</td>
-              <td>Torneio dos Calouros</td>
-              <td>16</td>
-              <td>16/16</td>
-              <td>128</td>
-              <td>15/06/2025</td>
-              <td>
-                <div>
-                  <button class="btn btn-warning me-2"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i></button>
-                  <button class="btn btn-danger"><i class="fa-solid fa-trash-can" style="color: #ffffff;"></i></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>03</td>
-              <td>Desafio InterAtléticas</td>
-              <td>12</td>
-              <td>12/16</td>
-              <td>110</td>
-              <td>27/07/2025</td>
-              <td>
-                <div>
-                  <button class="btn btn-warning me-2"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i></button>
-                  <button class="btn btn-danger"><i class="fa-solid fa-trash-can" style="color: #ffffff;"></i></button>
-                </div>
-              </td>
-
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-12"></div>
-</div>
-
-<ng-template #editarCampeonato let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title">Editar Campeonato</h4>
-    <button
-      type="button"
-      class="btn-close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross Click')"
-    ></button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="campeonatoForm" (ngSubmit)="onSubmit()">
-      <div class="mb-3">
-        <label for="nomeCampeonato" class="form-label"
-          >Nome do Campeonato</label
-        >
-        <input
-          id="nomeCampeonato"
-          formControlName="nomeCampeonato"
-          class="form-control"
-        />
-      </div>
-
-      <div class="mb-3">
-        <label for="idCampeonato" class="form-label">ID do Campeonato</label>
-        <input
-          id="idCampeonato"
-          formControlName="idCampeonato"
-          class="form-control"
-        />
-      </div>
-
-      <div formArrayName="equipes">
-        <div
-          *ngFor="let equipe of equipes.controls; let i = index"
-          [formGroupName]="i"
-          class="mb-3"
-        >
-          <label for="nome{{ i }}" class="form-label"
-            >Nome da Equipe {{ i + 1 }}</label
-          >
-          <input id="nome{{ i }}" formControlName="nome" class="form-control" />
-
-          <label for="id{{ i }}" class="form-label"
-            >ID da Equipe {{ i + 1 }}</label
-          >
-          <input id="id{{ i }}" formControlName="id" class="form-control" />
-
-          <button
-            type="button"
-            class="btn btn-danger mt-2"
-            (click)="removerEquipe(i)"
-          >
-            Remover
-          </button>
-        </div>
-      </div>
-
+  <div class="col-12 col-md-12 mt-4">
+    <div class="d-flex mb-3">
+      <h4 class="mb-3">Lista de Campeonatos</h4>
       <button
         type="button"
-        class="btn btn-secondary mt-3"
-        (click)="adicionarEquipe()"
+        class="btn btn-success ms-auto"
+        (click)="abrirModal(criarCampeonato, 'create')"
       >
-        Adicionar Equipe
+        Novo Campeonato
       </button>
-
-      <div class="modal-footer">
-        <div class="col-md-12 d-flex justify-content-end">
-          <button
-            type="submit"
-            class="btn btn-danger"
-            (click)="modal.dismiss()"
-          >
-            Cancelar
-          </button>
-          <button
-            type="submit"
-            class="btn btn-success ms-4"
-            [disabled]="campeonatoForm.invalid"
-          >
-            Salvar Alterações
-          </button>
-        </div>
-      </div>
-    </form>
+    </div>
+    <div class="table-responsive">
+      <table
+        class="table table-striped table-bordered align-middle text-center"
+      >
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Status</th>
+            <th>Data</th>
+            <th>Horário</th>
+            <th>Equipes</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of lista; let i = index">
+            <td>{{ c.id }}</td>
+            <td>{{ c.nome }}</td>
+            <td>{{ c.status }}</td>
+            <td>{{ c.dataCampeonato?.data | date : "dd/MM/yyyy" }}</td>
+            <td>
+              {{ c.dataCampeonato?.horaInicio }} -
+              {{ c.dataCampeonato?.horaFim }}
+            </td>
+            <!-- <td>{{ c.equipes.length }}</td> -->
+            <td>
+              <button
+                class="btn btn-warning me-2"
+                (click)="abrirModal(editarCampeonato, 'edit', i)"
+              >
+                <i class="fa-solid fa-pen-to-square text-white"></i>
+              </button>
+              <button class="btn btn-danger me-2">
+                <i class="fa-solid fa-trash-can text-white"></i>
+              </button>
+              <button
+                class="btn btn-info"
+                (click)="abrirModal(adicionarEquipesModal, 'addEquipes', i)"
+              >
+                <i class="fa-solid fa-users text-white"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</ng-template>
+</div>
 
+<!-- Modal Criar Campeonato -->
 <ng-template #criarCampeonato let-modal>
   <div class="modal-header">
     <h4 class="modal-title">Criar Novo Campeonato</h4>
-    <button
-      type="button"
-      class="btn-close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    ></button>
+    <button class="btn-close" (click)="modal.dismiss()"></button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="formCreate">
+    <form [formGroup]="formCreate" (ngSubmit)="onSubmitCreate()">
       <div class="mb-3">
-        <label for="nomeCampeonato" class="form-label"
-          >Nome do Campeonato</label
+        <label class="form-label">Nome</label>
+        <input formControlName="nome" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Status</label>
+        <select formControlName="status" class="form-select" required>
+          <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
+        </select>
+      </div>
+      <div formGroupName="dataCampeonato" class="row g-2 mb-3">
+        <div class="col-6">
+          <label class="form-label">Data</label>
+          <input
+            type="date"
+            formControlName="data"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="col-3">
+          <label class="form-label">Início</label>
+          <input
+            type="time"
+            formControlName="horaInicio"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="col-3">
+          <label class="form-label">Fim</label>
+          <input
+            type="time"
+            formControlName="horaFim"
+            class="form-control"
+            required
+          />
+        </div>
+      </div>
+      <div class="text-end">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="modal.dismiss()"
         >
-        <input
-          id="nomeCampeonato"
-          formControlName="nomeCampeonato"
-          class="form-control"
-        />
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          class="btn btn-success ms-2"
+          [disabled]="formCreate.invalid"
+        >
+          Salvar
+        </button>
       </div>
     </form>
-  </div>
-  <div class="modal-footer">
-    <div class="col-md-12 d-flex justify-content-end">
-      <button type="submit" (click)="modal.dismiss()" class="btn btn-danger">
-        Cancelar
-      </button>
-      <button
-        type="submit"
-        (click)="onSubmitCreate(); modal.dismiss()"
-        class="btn btn-success ms-4"
-      >
-        Criar Campeonato
-      </button>
-    </div>
   </div>
 </ng-template>
 
-<ng-template #criarEquipe let-modal>
+<!-- Modal Editar Campeonato -->
+<ng-template #editarCampeonato let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Criar Novo Campeonato</h4>
-    <button
-      type="button"
-      class="btn-close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    ></button>
+    <h4 class="modal-title">Editar Campeonato</h4>
+    <button class="btn-close" (click)="modal.dismiss()"></button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="formCreate">
+    <form [formGroup]="campeonatoForm" (ngSubmit)="onSubmit()">
+      <input formControlName="id" type="hidden" />
       <div class="mb-3">
-        <label for="nomeCampeonato" class="form-label"
-          >Nome do Campeonato</label
-        >
-        <input
-          id="nomeCampeonato"
-          formControlName="nomeCampeonato"
-          class="form-control"
-        />
+        <label class="form-label">Nome</label>
+        <input formControlName="nome" class="form-control" required />
       </div>
-
-      <div formArrayName="equipes">
-        <div
-          *ngFor="let equipe of equipes.controls; let i = index"
-          [formGroupName]="i"
-          class="mb-3"
-        >
-          <label for="nome{{ i }}" class="form-label"
-            >Nome da Equipe {{ i + 1 }}</label
-          >
-          <input id="nome{{ i }}" formControlName="nome" class="form-control" />
-
-          <button
-            type="button"
-            class="btn btn-danger mt-2"
-            (click)="removerEquipe(i)"
-          >
-            Remover
-          </button>
+      <div class="mb-3">
+        <label class="form-label">Status</label>
+        <select formControlName="status" class="form-select" required>
+          <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
+        </select>
+      </div>
+      <div formGroupName="dataCampeonato" class="row g-2 mb-3">
+        <div class="col-4">
+          <label class="form-label">Data</label>
+          <input
+            type="date"
+            formControlName="data"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="col-4">
+          <label class="form-label">Início</label>
+          <input
+            type="time"
+            formControlName="horaInicio"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="col-4">
+          <label class="form-label">Fim</label>
+          <input
+            type="time"
+            formControlName="horaFim"
+            class="form-control"
+            required
+          />
         </div>
       </div>
+      <div class="text-end">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="modal.dismiss()"
+        >
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          class="btn btn-success ms-2"
+          [disabled]="campeonatoForm.invalid"
+        >
+          Salvar
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
 
-      <button
-        type="button"
-        class="btn btn-secondary mt-3"
-        (click)="adicionarEquipe()"
-      >
-        Adicionar Equipe
-      </button>
+<!-- Modal Adicionar Equipes -->
+<ng-template #adicionarEquipesModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Adicionar Equipes</h4>
+    <button class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="equipesForm">
+      <div formArrayName="equipes">
+        <div
+          *ngFor="let grp of equipesArray.controls; let i = index"
+          [formGroupName]="i"
+          class="mb-3 p-2 border rounded"
+        >
+          <div class="mb-2">
+            <label class="form-label">Equipe {{ i + 1 }}</label>
+            <input formControlName="nome" class="form-control" required />
+          </div>
+          <div formArrayName="participantes" class="ps-3">
+            <div
+              *ngFor="let p of getParticipantes(i).controls; let j = index"
+              [formGroupName]="j"
+              class="d-flex mb-2 align-items-center"
+            >
+              <input
+                formControlName="nome"
+                class="form-control me-2"
+                placeholder="Nome participante"
+                required
+              />
+              <button
+                type="button"
+                class="btn btn-danger btn-sm"
+                (click)="removerParticipante(i, j)"
+              >
+                ×
+              </button>
+            </div>
+            <button
+              type="button"
+              class="btn btn-link"
+              (click)="adicionarParticipante(i)"
+              [disabled]="getParticipantes(i).length >= 4"
+            >
+              + Adicionar Participante
+            </button>
+          </div>
+        </div>
+      </div>
     </form>
   </div>
   <div class="modal-footer">
-    <div class="col-md-12 d-flex justify-content-end">
-      <button type="submit" (click)="modal.dismiss()" class="btn btn-danger">
-        Cancelar
-      </button>
-      <button
-        type="submit"
-        (click)="onSubmitCreate(); modal.dismiss()"
-        class="btn btn-success ms-4"
-      >
-        Criar Campeonato
-      </button>
-    </div>
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">
+      Cancelar
+    </button>
+    <button type="button" class="btn btn-success" (click)="salvarEquipes()">
+      Salvar Equipes
+    </button>
   </div>
 </ng-template>

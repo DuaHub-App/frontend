@@ -1,84 +1,90 @@
 package com.app.duahub.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import com.app.duahub.dto.CampeonatoDTO;
+import com.app.duahub.entity.Campeonato;
+import com.app.duahub.service.CampeonatoBusinessService;
+import com.app.duahub.service.CampeonatoService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.app.duahub.entity.Campeonato;
-import com.app.duahub.repository.CampeonatoRepository;
-import com.app.duahub.service.CampeonatoService;
+import java.util.List;
 
 @RestController
 @RequestMapping("/campeonatos")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class CampeonatoController {
 
-	@Autowired
-	private CampeonatoRepository campeonatoRepository; 
+    private final CampeonatoService campeonatoService;
+    private final CampeonatoBusinessService businessService;
 
-	@Autowired
-	private CampeonatoService campeonatoService;
-
-	@PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Object> save(@RequestBody Campeonato campeonato) {
-        try {
-            String message = this.campeonatoService.save(campeonato);
-            return new ResponseEntity<>(message, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Erro ao salvar o campeonato: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    @PostMapping
+    //@PreAuthorize("hasAuthority('admin-geral')")
+    public ResponseEntity<Campeonato> criar(@RequestBody Campeonato campeonato) {
+        return ResponseEntity.ok(campeonatoService.salvar(campeonato));
     }
 
-    // Atualização de campeonato
-    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<Object> update(@RequestBody Campeonato campeonato, @PathVariable Long id) {
-        try {
-            String message = this.campeonatoService.update(campeonato, id);
-            return new ResponseEntity<>(message, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Erro ao atualizar o campeonato: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    //@PreAuthorize("hasAuthority('admin-geral')")
+    public ResponseEntity<Campeonato> atualizar(@RequestBody Campeonato campeonato, @PathVariable Long id) {
+        return ResponseEntity.ok(campeonatoService.atualizar(campeonato, id));
     }
 
-    // Exclusão de campeonato
-    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable Long id) {
-        try {
-            String message = this.campeonatoService.delete(id);
-            return new ResponseEntity<>(message, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Erro ao excluir o campeonato: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    //@PreAuthorize("hasAuthority('admin-geral')")
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        campeonatoService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 
-    // Buscar todos os campeonatos
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
-    public ResponseEntity<Object> findAll() {
-        try {
-            List<Campeonato> list = this.campeonatoService.findAll();
-            return new ResponseEntity<>(list, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Erro ao buscar campeonatos: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    //@PreAuthorize("hasAuthority('admin-geral')")
+    public ResponseEntity<List<CampeonatoDTO>> listarTodos() {
+        return ResponseEntity.ok(campeonatoService.listarTodosComoDTO());
     }
 
-    // Buscar campeonato por ID
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
-    public ResponseEntity<Object> findById(@PathVariable Long id) {
-        try {
-            Campeonato campeonato = this.campeonatoService.findById(id);
-            return new ResponseEntity<>(campeonato, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Campeonato não encontrado: " + e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+    //@PreAuthorize("hasAuthority('admin-geral')")
+    public ResponseEntity<Campeonato> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(campeonatoService.buscarPorId(id)
+                .orElseThrow(() -> new RuntimeException("Campeonato não encontrado")));
+    }
+
+/*
+    private CampeonatoDTO convertToDTO(Campeonato campeonato) {
+        return new CampeonatoDTO(
+                campeonato.getId(),
+                campeonato.getNome(),
+                campeonato.getStatus().toString()
+        );
+    }
+*/
+
+//    @PutMapping("/{id}/iniciar")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<CampeonatoDTO> iniciar(@PathVariable Long id) {
+//        Campeonato campeonato = businessService.iniciarCampeonato(id);
+//        return ResponseEntity.ok(convertToDTO(campeonato));
+//    }
+//
+//    @PutMapping("/{id}/finalizar")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<CampeonatoDTO> finalizar(@PathVariable Long id) {
+//        Campeonato campeonato = businessService.finalizarCampeonato(id);
+//        return ResponseEntity.ok(convertToDTO(campeonato));
+//    }
+
+    @PutMapping("/{id}/iniciar")
+    //@PreAuthorize("hasAuthority('admin-geral')")
+    public ResponseEntity<Campeonato> iniciar(@PathVariable Long id) {
+        return ResponseEntity.ok(businessService.iniciarCampeonato(id));
+    }
+
+    @PutMapping("/{id}/finalizar")
+    //@PreAuthorize("hasAuthority('admin-geral')")
+    public ResponseEntity<Campeonato> finalizar(@PathVariable Long id) {
+        return ResponseEntity.ok(businessService.finalizarCampeonato(id));
     }
 }

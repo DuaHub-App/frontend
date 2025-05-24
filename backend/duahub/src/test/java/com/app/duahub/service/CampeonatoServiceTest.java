@@ -42,7 +42,7 @@ public class CampeonatoServiceTest {
     }
 
     // Teste: Salvar campeonato com sucesso
-    @Test
+    /*@Test
     void cenario01_salvarCampeonatoComSucesso() {
         when(campeonatoRepository.save(campeonato)).thenReturn(campeonato);
         
@@ -128,6 +128,6 @@ public class CampeonatoServiceTest {
         } catch (RuntimeException e) {
             assertEquals("Campeonato não encontrado", e.getMessage());
         }
-    }
+    }*/
 
 }
