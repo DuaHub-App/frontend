@@ -7,9 +7,11 @@ import com.app.duahub.service.CampeonatoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/campeonatos")
@@ -40,7 +42,7 @@ public class CampeonatoController {
     }
 
     @GetMapping
-    //@PreAuthorize("hasAuthority('admin-geral')")
+    //@PreAuthorize("hasRole('sistema1')")
     public ResponseEntity<List<CampeonatoDTO>> listarTodos() {
         return ResponseEntity.ok(campeonatoService.listarTodosComoDTO());
     }
